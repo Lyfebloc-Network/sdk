@@ -21,5 +21,5 @@ export class StepTransaction {
 }
 
 export class StepTransactions {
-  items: StepTransaction[]
+  items: StepTransaction[];
 }

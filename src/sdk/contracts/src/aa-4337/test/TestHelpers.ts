@@ -13,13 +13,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type ValidationDataStruct = {
   aggregator: PromiseOrValue<string>;
@@ -46,46 +40,24 @@ export interface TestHelpersInterface extends utils.Interface {
       | 'intersectTimeRange'
       | 'packValidationData'
       | 'packValidationDataStruct'
-      | 'parseValidationData'
+      | 'parseValidationData',
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: 'intersectTimeRange',
-    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
     functionFragment: 'packValidationData',
-    values: [
-      PromiseOrValue<boolean>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<boolean>, PromiseOrValue<BigNumberish>, PromiseOrValue<BigNumberish>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'packValidationDataStruct',
-    values: [ValidationDataStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'parseValidationData',
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
+  encodeFunctionData(functionFragment: 'packValidationDataStruct', values: [ValidationDataStruct]): string;
+  encodeFunctionData(functionFragment: 'parseValidationData', values: [PromiseOrValue<BigNumberish>]): string;
 
-  decodeFunctionResult(
-    functionFragment: 'intersectTimeRange',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'packValidationData',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'packValidationDataStruct',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'parseValidationData',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'intersectTimeRange', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'packValidationData', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'packValidationDataStruct', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'parseValidationData', data: BytesLike): Result;
 
   events: {};
 }
@@ -100,16 +72,12 @@ export interface TestHelpers extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -120,72 +88,63 @@ export interface TestHelpers extends BaseContract {
     intersectTimeRange(
       validationData: PromiseOrValue<BigNumberish>,
       paymasterValidationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[ValidationDataStructOutput]>;
 
     packValidationData(
       sigFailed: PromiseOrValue<boolean>,
       validUntil: PromiseOrValue<BigNumberish>,
       validAfter: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
-    packValidationDataStruct(
-      data: ValidationDataStruct,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    packValidationDataStruct(data: ValidationDataStruct, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     parseValidationData(
       validationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[ValidationDataStructOutput]>;
   };
 
   intersectTimeRange(
     validationData: PromiseOrValue<BigNumberish>,
     paymasterValidationData: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<ValidationDataStructOutput>;
 
   packValidationData(
     sigFailed: PromiseOrValue<boolean>,
     validUntil: PromiseOrValue<BigNumberish>,
     validAfter: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
-  packValidationDataStruct(
-    data: ValidationDataStruct,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  packValidationDataStruct(data: ValidationDataStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
   parseValidationData(
     validationData: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<ValidationDataStructOutput>;
 
   callStatic: {
     intersectTimeRange(
       validationData: PromiseOrValue<BigNumberish>,
       paymasterValidationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<ValidationDataStructOutput>;
 
     packValidationData(
       sigFailed: PromiseOrValue<boolean>,
       validUntil: PromiseOrValue<BigNumberish>,
       validAfter: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    packValidationDataStruct(
-      data: ValidationDataStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    packValidationDataStruct(data: ValidationDataStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
     parseValidationData(
       validationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<ValidationDataStructOutput>;
   };
 
@@ -195,49 +154,40 @@ export interface TestHelpers extends BaseContract {
     intersectTimeRange(
       validationData: PromiseOrValue<BigNumberish>,
       paymasterValidationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     packValidationData(
       sigFailed: PromiseOrValue<boolean>,
       validUntil: PromiseOrValue<BigNumberish>,
       validAfter: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    packValidationDataStruct(
-      data: ValidationDataStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    packValidationDataStruct(data: ValidationDataStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
-    parseValidationData(
-      validationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    parseValidationData(validationData: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     intersectTimeRange(
       validationData: PromiseOrValue<BigNumberish>,
       paymasterValidationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     packValidationData(
       sigFailed: PromiseOrValue<boolean>,
       validUntil: PromiseOrValue<BigNumberish>,
       validAfter: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    packValidationDataStruct(
-      data: ValidationDataStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    packValidationDataStruct(data: ValidationDataStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     parseValidationData(
       validationData: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

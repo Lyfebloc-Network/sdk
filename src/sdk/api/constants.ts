@@ -3,4 +3,3 @@ export const сacheSettings = {
     timeToLive: 1 * 60 * 60 * 12, // 12 hours
   },
 };
-

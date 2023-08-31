@@ -1,5 +1,5 @@
-import { Route } from "@lifi/sdk";
+import { Route } from '@lifi/sdk';
 
 export class AdvanceRoutesLiFi {
-    items: Route[]
+  items: Route[];
 }

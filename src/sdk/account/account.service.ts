@@ -1,9 +1,7 @@
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HeaderNames, Service, SynchronizedSubject, keccak256 } from '../common';
-import {
-  Account,
-} from './classes';
+import { Account } from './classes';
 import { AccountTypes } from './constants';
 
 export class AccountService extends Service {
@@ -27,8 +25,8 @@ export class AccountService extends Service {
   get headers(): { [key: string]: any } {
     return this.services.walletService.walletAddress
       ? {
-        [HeaderNames.AnalyticsToken]: keccak256(this.services.walletService.walletAddress),
-      }
+          [HeaderNames.AnalyticsToken]: keccak256(this.services.walletService.walletAddress),
+        }
       : {};
   }
 
@@ -40,7 +38,6 @@ export class AccountService extends Service {
         synchronizedAt: null,
       }),
     );
-    
   }
 
   isContractAccount(): boolean {

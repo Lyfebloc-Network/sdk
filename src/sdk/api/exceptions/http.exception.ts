@@ -6,4 +6,3 @@ export class HttpException extends Exception {
     super(message || code);
   }
 }
-

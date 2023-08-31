@@ -2,89 +2,86 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
-import type {
-  IWhitelist,
-  IWhitelistInterface,
-} from "../../../src/interfaces/IWhitelist";
+import { Contract, Signer, utils } from 'ethers';
+import type { Provider } from '@ethersproject/providers';
+import type { IWhitelist, IWhitelistInterface } from '../../../src/interfaces/IWhitelist';
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_account",
-        type: "address",
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
       },
     ],
-    name: "add",
+    name: 'add',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address[]",
-        name: "_accounts",
-        type: "address[]",
+        internalType: 'address[]',
+        name: '_accounts',
+        type: 'address[]',
       },
     ],
-    name: "addBatch",
+    name: 'addBatch',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_sponsor",
-        type: "address",
+        internalType: 'address',
+        name: '_sponsor',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "_account",
-        type: "address",
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
       },
     ],
-    name: "check",
+    name: 'check',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_account",
-        type: "address",
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
       },
     ],
-    name: "remove",
+    name: 'remove',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address[]",
-        name: "_accounts",
-        type: "address[]",
+        internalType: 'address[]',
+        name: '_accounts',
+        type: 'address[]',
       },
     ],
-    name: "removeBatch",
+    name: 'removeBatch',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
 ] as const;
 
@@ -93,10 +90,7 @@ export class IWhitelist__factory {
   static createInterface(): IWhitelistInterface {
     return new utils.Interface(_abi) as IWhitelistInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IWhitelist {
+  static connect(address: string, signerOrProvider: Signer | Provider): IWhitelist {
     return new Contract(address, _abi, signerOrProvider) as IWhitelist;
   }
 }

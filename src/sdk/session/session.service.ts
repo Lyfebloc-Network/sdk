@@ -64,7 +64,7 @@ export class SessionService extends Service {
         code: string;
       }>(
         gql`
-          mutation($chainId: Int, $account: String!) {
+          mutation ($chainId: Int, $account: String!) {
             code: createSessionCode(chainId: $chainId, account: $account)
           }
         `,
@@ -86,7 +86,7 @@ export class SessionService extends Service {
         session: Session;
       }>(
         gql`
-          mutation(
+          mutation (
             $chainId: Int
             $account: String!
             $code: String!

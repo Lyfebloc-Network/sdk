@@ -18,7 +18,7 @@ declare const window: Window & {
 };
 
 export class MetaMaskWalletProvider extends DynamicWalletProvider {
-  static get ethereum(): typeof window['ethereum'] {
+  static get ethereum(): (typeof window)['ethereum'] {
     return this.detect() ? window.ethereum : null;
   }
 

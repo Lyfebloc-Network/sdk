@@ -15,7 +15,7 @@ export function prepareAddresses<T extends {}>(data: T, ...keys: (keyof T)[]): T
 
     try {
       if (Array.isArray(result[key])) {
-        const addresses: any = ((result[key] as any) as string[]).map((item) => {
+        const addresses: any = (result[key] as any as string[]).map((item) => {
           let result = item;
 
           if (item) {

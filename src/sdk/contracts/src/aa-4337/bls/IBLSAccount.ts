@@ -13,19 +13,9 @@ import type {
   Signer,
   utils,
 } from 'ethers';
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from '@ethersproject/abi';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -52,7 +42,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -73,31 +63,16 @@ export interface IBLSAccountInterface extends utils.Interface {
     'validateUserOp((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes),bytes32,uint256)': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic: 'getBlsPublicKey' | 'validateUserOp'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'getBlsPublicKey' | 'validateUserOp'): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'getBlsPublicKey',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'getBlsPublicKey', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'validateUserOp',
-    values: [
-      UserOperationStruct,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [UserOperationStruct, PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: 'getBlsPublicKey',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateUserOp',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'getBlsPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateUserOp', data: BytesLike): Result;
 
   events: {
     'PublicKeyChanged(uint256[4],uint256[4])': EventFragment;
@@ -111,15 +86,11 @@ export interface PublicKeyChangedEventObject {
   newPublicKey: [BigNumber, BigNumber, BigNumber, BigNumber];
 }
 export type PublicKeyChangedEvent = TypedEvent<
-  [
-    [BigNumber, BigNumber, BigNumber, BigNumber],
-    [BigNumber, BigNumber, BigNumber, BigNumber]
-  ],
+  [[BigNumber, BigNumber, BigNumber, BigNumber], [BigNumber, BigNumber, BigNumber, BigNumber]],
   PublicKeyChangedEventObject
 >;
 
-export type PublicKeyChangedEventFilter =
-  TypedEventFilter<PublicKeyChangedEvent>;
+export type PublicKeyChangedEventFilter = TypedEventFilter<PublicKeyChangedEvent>;
 
 export interface IBLSAccount extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -131,16 +102,12 @@ export interface IBLSAccount extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -148,51 +115,39 @@ export interface IBLSAccount extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    getBlsPublicKey(
-      overrides?: CallOverrides
-    ): Promise<[[BigNumber, BigNumber, BigNumber, BigNumber]]>;
+    getBlsPublicKey(overrides?: CallOverrides): Promise<[[BigNumber, BigNumber, BigNumber, BigNumber]]>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
-  getBlsPublicKey(
-    overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
+  getBlsPublicKey(overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
   validateUserOp(
     userOp: UserOperationStruct,
     userOpHash: PromiseOrValue<BytesLike>,
     missingAccountFunds: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    getBlsPublicKey(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
+    getBlsPublicKey(overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   filters: {
-    'PublicKeyChanged(uint256[4],uint256[4])'(
-      oldPublicKey?: null,
-      newPublicKey?: null
-    ): PublicKeyChangedEventFilter;
-    PublicKeyChanged(
-      oldPublicKey?: null,
-      newPublicKey?: null
-    ): PublicKeyChangedEventFilter;
+    'PublicKeyChanged(uint256[4],uint256[4])'(oldPublicKey?: null, newPublicKey?: null): PublicKeyChangedEventFilter;
+    PublicKeyChanged(oldPublicKey?: null, newPublicKey?: null): PublicKeyChangedEventFilter;
   };
 
   estimateGas: {
@@ -202,7 +157,7 @@ export interface IBLSAccount extends BaseContract {
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
@@ -213,7 +168,7 @@ export interface IBLSAccount extends BaseContract {
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

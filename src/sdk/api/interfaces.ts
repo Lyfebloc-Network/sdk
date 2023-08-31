@@ -17,4 +17,3 @@ export interface ApiRequestOptions<T extends {}, K extends keyof T = keyof T> {
 export interface ApiRequestQueryOptions<T> extends ApiRequestOptions<T> {
   fetchPolicy?: FetchPolicy;
 }
-

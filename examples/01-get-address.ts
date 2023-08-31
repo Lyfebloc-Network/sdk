@@ -3,10 +3,12 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-
 async function main() {
   // initializating sdk...
-  const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, { chainId: Number(process.env.CHAIN_ID) })
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    { chainId: Number(process.env.CHAIN_ID) },
+  );
 
   // get LyfeblocNetworkWallet address...
   const address: string = await primeSdk.getCounterFactualAddress();

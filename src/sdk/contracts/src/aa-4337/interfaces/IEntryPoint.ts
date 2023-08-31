@@ -14,19 +14,9 @@ import type {
   Signer,
   utils,
 } from 'ethers';
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from '@ethersproject/abi';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -53,7 +43,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -77,13 +67,7 @@ export declare namespace IStakeManager {
     withdrawTime: PromiseOrValue<BigNumberish>;
   };
 
-  export type DepositInfoStructOutput = [
-    BigNumber,
-    boolean,
-    BigNumber,
-    number,
-    number
-  ] & {
+  export type DepositInfoStructOutput = [BigNumber, boolean, BigNumber, number, number] & {
     deposit: BigNumber;
     staked: boolean;
     stake: BigNumber;
@@ -99,11 +83,7 @@ export declare namespace IEntryPoint {
     signature: PromiseOrValue<BytesLike>;
   };
 
-  export type UserOpsPerAggregatorStructOutput = [
-    UserOperationStructOutput[],
-    string,
-    string
-  ] & {
+  export type UserOpsPerAggregatorStructOutput = [UserOperationStructOutput[], string, string] & {
     userOps: UserOperationStructOutput[];
     aggregator: string;
     signature: string;
@@ -141,102 +121,44 @@ export interface IEntryPointInterface extends utils.Interface {
       | 'simulateValidation'
       | 'unlockStake'
       | 'withdrawStake'
-      | 'withdrawTo'
+      | 'withdrawTo',
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'addStake',
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'balanceOf',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'depositTo',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getDepositInfo',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getSenderAddress',
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getUserOpHash',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'addStake', values: [PromiseOrValue<BigNumberish>]): string;
+  encodeFunctionData(functionFragment: 'balanceOf', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'depositTo', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'getDepositInfo', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'getSenderAddress', values: [PromiseOrValue<BytesLike>]): string;
+  encodeFunctionData(functionFragment: 'getUserOpHash', values: [UserOperationStruct]): string;
   encodeFunctionData(
     functionFragment: 'handleAggregatedOps',
-    values: [IEntryPoint.UserOpsPerAggregatorStruct[], PromiseOrValue<string>]
+    values: [IEntryPoint.UserOpsPerAggregatorStruct[], PromiseOrValue<string>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'handleOps',
-    values: [UserOperationStruct[], PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'handleOps', values: [UserOperationStruct[], PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: 'simulateHandleOp',
-    values: [
-      UserOperationStruct,
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [UserOperationStruct, PromiseOrValue<string>, PromiseOrValue<BytesLike>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'simulateValidation',
-    values: [UserOperationStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'unlockStake',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'withdrawStake',
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'simulateValidation', values: [UserOperationStruct]): string;
+  encodeFunctionData(functionFragment: 'unlockStake', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'withdrawStake', values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: 'withdrawTo',
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
 
   decodeFunctionResult(functionFragment: 'addStake', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'depositTo', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'getDepositInfo',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getSenderAddress',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getUserOpHash',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'handleAggregatedOps',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'getDepositInfo', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getSenderAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getUserOpHash', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'handleAggregatedOps', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'handleOps', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'simulateHandleOp',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'simulateValidation',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'unlockStake',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'withdrawStake',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'simulateHandleOp', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'simulateValidation', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'unlockStake', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'withdrawStake', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'withdrawTo', data: BytesLike): Result;
 
   events: {
@@ -268,10 +190,7 @@ export interface AccountDeployedEventObject {
   factory: string;
   paymaster: string;
 }
-export type AccountDeployedEvent = TypedEvent<
-  [string, string, string, string],
-  AccountDeployedEventObject
->;
+export type AccountDeployedEvent = TypedEvent<[string, string, string, string], AccountDeployedEventObject>;
 
 export type AccountDeployedEventFilter = TypedEventFilter<AccountDeployedEvent>;
 
@@ -279,33 +198,23 @@ export interface DepositedEventObject {
   account: string;
   totalDeposit: BigNumber;
 }
-export type DepositedEvent = TypedEvent<
-  [string, BigNumber],
-  DepositedEventObject
->;
+export type DepositedEvent = TypedEvent<[string, BigNumber], DepositedEventObject>;
 
 export type DepositedEventFilter = TypedEventFilter<DepositedEvent>;
 
 export interface SignatureAggregatorChangedEventObject {
   aggregator: string;
 }
-export type SignatureAggregatorChangedEvent = TypedEvent<
-  [string],
-  SignatureAggregatorChangedEventObject
->;
+export type SignatureAggregatorChangedEvent = TypedEvent<[string], SignatureAggregatorChangedEventObject>;
 
-export type SignatureAggregatorChangedEventFilter =
-  TypedEventFilter<SignatureAggregatorChangedEvent>;
+export type SignatureAggregatorChangedEventFilter = TypedEventFilter<SignatureAggregatorChangedEvent>;
 
 export interface StakeLockedEventObject {
   account: string;
   totalStaked: BigNumber;
   unstakeDelaySec: BigNumber;
 }
-export type StakeLockedEvent = TypedEvent<
-  [string, BigNumber, BigNumber],
-  StakeLockedEventObject
->;
+export type StakeLockedEvent = TypedEvent<[string, BigNumber, BigNumber], StakeLockedEventObject>;
 
 export type StakeLockedEventFilter = TypedEventFilter<StakeLockedEvent>;
 
@@ -313,10 +222,7 @@ export interface StakeUnlockedEventObject {
   account: string;
   withdrawTime: BigNumber;
 }
-export type StakeUnlockedEvent = TypedEvent<
-  [string, BigNumber],
-  StakeUnlockedEventObject
->;
+export type StakeUnlockedEvent = TypedEvent<[string, BigNumber], StakeUnlockedEventObject>;
 
 export type StakeUnlockedEventFilter = TypedEventFilter<StakeUnlockedEvent>;
 
@@ -325,10 +231,7 @@ export interface StakeWithdrawnEventObject {
   withdrawAddress: string;
   amount: BigNumber;
 }
-export type StakeWithdrawnEvent = TypedEvent<
-  [string, string, BigNumber],
-  StakeWithdrawnEventObject
->;
+export type StakeWithdrawnEvent = TypedEvent<[string, string, BigNumber], StakeWithdrawnEventObject>;
 
 export type StakeWithdrawnEventFilter = TypedEventFilter<StakeWithdrawnEvent>;
 
@@ -346,8 +249,7 @@ export type UserOperationEventEvent = TypedEvent<
   UserOperationEventEventObject
 >;
 
-export type UserOperationEventEventFilter =
-  TypedEventFilter<UserOperationEventEvent>;
+export type UserOperationEventEventFilter = TypedEventFilter<UserOperationEventEvent>;
 
 export interface UserOperationRevertReasonEventObject {
   userOpHash: string;
@@ -360,18 +262,14 @@ export type UserOperationRevertReasonEvent = TypedEvent<
   UserOperationRevertReasonEventObject
 >;
 
-export type UserOperationRevertReasonEventFilter =
-  TypedEventFilter<UserOperationRevertReasonEvent>;
+export type UserOperationRevertReasonEventFilter = TypedEventFilter<UserOperationRevertReasonEvent>;
 
 export interface WithdrawnEventObject {
   account: string;
   withdrawAddress: string;
   amount: BigNumber;
 }
-export type WithdrawnEvent = TypedEvent<
-  [string, string, BigNumber],
-  WithdrawnEventObject
->;
+export type WithdrawnEvent = TypedEvent<[string, string, BigNumber], WithdrawnEventObject>;
 
 export type WithdrawnEventFilter = TypedEventFilter<WithdrawnEvent>;
 
@@ -385,16 +283,12 @@ export interface IEntryPoint extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -404,22 +298,19 @@ export interface IEntryPoint extends BaseContract {
   functions: {
     addStake(
       _unstakeDelaySec: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     depositTo(
       account: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     getDepositInfo(
       account: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [IStakeManager.DepositInfoStructOutput] & {
         info: IStakeManager.DepositInfoStructOutput;
@@ -428,189 +319,155 @@ export interface IEntryPoint extends BaseContract {
 
     getSenderAddress(
       initCode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[string]>;
 
     handleAggregatedOps(
       opsPerAggregator: IEntryPoint.UserOpsPerAggregatorStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     handleOps(
       ops: UserOperationStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     simulateHandleOp(
       op: UserOperationStruct,
       target: PromiseOrValue<string>,
       targetCallData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     simulateValidation(
       userOp: UserOperationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    unlockStake(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    unlockStake(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
     withdrawStake(
       withdrawAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     withdrawTo(
       withdrawAddress: PromiseOrValue<string>,
       withdrawAmount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
   addStake(
     _unstakeDelaySec: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  balanceOf(
-    account: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   depositTo(
     account: PromiseOrValue<string>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   getDepositInfo(
     account: PromiseOrValue<string>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<IStakeManager.DepositInfoStructOutput>;
 
   getSenderAddress(
     initCode: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  getUserOpHash(
-    userOp: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   handleAggregatedOps(
     opsPerAggregator: IEntryPoint.UserOpsPerAggregatorStruct[],
     beneficiary: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   handleOps(
     ops: UserOperationStruct[],
     beneficiary: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   simulateHandleOp(
     op: UserOperationStruct,
     target: PromiseOrValue<string>,
     targetCallData: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   simulateValidation(
     userOp: UserOperationStruct,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  unlockStake(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  unlockStake(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
   withdrawStake(
     withdrawAddress: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   withdrawTo(
     withdrawAddress: PromiseOrValue<string>,
     withdrawAmount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    addStake(
-      _unstakeDelaySec: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    addStake(_unstakeDelaySec: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    depositTo(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    depositTo(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     getDepositInfo(
       account: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<IStakeManager.DepositInfoStructOutput>;
 
-    getSenderAddress(
-      initCode: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    getSenderAddress(initCode: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<void>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
     handleAggregatedOps(
       opsPerAggregator: IEntryPoint.UserOpsPerAggregatorStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     handleOps(
       ops: UserOperationStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     simulateHandleOp(
       op: UserOperationStruct,
       target: PromiseOrValue<string>,
       targetCallData: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    simulateValidation(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    simulateValidation(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<void>;
 
     unlockStake(overrides?: CallOverrides): Promise<void>;
 
-    withdrawStake(
-      withdrawAddress: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    withdrawStake(withdrawAddress: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     withdrawTo(
       withdrawAddress: PromiseOrValue<string>,
       withdrawAmount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -619,60 +476,49 @@ export interface IEntryPoint extends BaseContract {
       userOpHash?: PromiseOrValue<BytesLike> | null,
       sender?: PromiseOrValue<string> | null,
       factory?: null,
-      paymaster?: null
+      paymaster?: null,
     ): AccountDeployedEventFilter;
     AccountDeployed(
       userOpHash?: PromiseOrValue<BytesLike> | null,
       sender?: PromiseOrValue<string> | null,
       factory?: null,
-      paymaster?: null
+      paymaster?: null,
     ): AccountDeployedEventFilter;
 
-    'Deposited(address,uint256)'(
-      account?: PromiseOrValue<string> | null,
-      totalDeposit?: null
-    ): DepositedEventFilter;
-    Deposited(
-      account?: PromiseOrValue<string> | null,
-      totalDeposit?: null
-    ): DepositedEventFilter;
+    'Deposited(address,uint256)'(account?: PromiseOrValue<string> | null, totalDeposit?: null): DepositedEventFilter;
+    Deposited(account?: PromiseOrValue<string> | null, totalDeposit?: null): DepositedEventFilter;
 
     'SignatureAggregatorChanged(address)'(
-      aggregator?: PromiseOrValue<string> | null
+      aggregator?: PromiseOrValue<string> | null,
     ): SignatureAggregatorChangedEventFilter;
-    SignatureAggregatorChanged(
-      aggregator?: PromiseOrValue<string> | null
-    ): SignatureAggregatorChangedEventFilter;
+    SignatureAggregatorChanged(aggregator?: PromiseOrValue<string> | null): SignatureAggregatorChangedEventFilter;
 
     'StakeLocked(address,uint256,uint256)'(
       account?: PromiseOrValue<string> | null,
       totalStaked?: null,
-      unstakeDelaySec?: null
+      unstakeDelaySec?: null,
     ): StakeLockedEventFilter;
     StakeLocked(
       account?: PromiseOrValue<string> | null,
       totalStaked?: null,
-      unstakeDelaySec?: null
+      unstakeDelaySec?: null,
     ): StakeLockedEventFilter;
 
     'StakeUnlocked(address,uint256)'(
       account?: PromiseOrValue<string> | null,
-      withdrawTime?: null
+      withdrawTime?: null,
     ): StakeUnlockedEventFilter;
-    StakeUnlocked(
-      account?: PromiseOrValue<string> | null,
-      withdrawTime?: null
-    ): StakeUnlockedEventFilter;
+    StakeUnlocked(account?: PromiseOrValue<string> | null, withdrawTime?: null): StakeUnlockedEventFilter;
 
     'StakeWithdrawn(address,address,uint256)'(
       account?: PromiseOrValue<string> | null,
       withdrawAddress?: null,
-      amount?: null
+      amount?: null,
     ): StakeWithdrawnEventFilter;
     StakeWithdrawn(
       account?: PromiseOrValue<string> | null,
       withdrawAddress?: null,
-      amount?: null
+      amount?: null,
     ): StakeWithdrawnEventFilter;
 
     'UserOperationEvent(bytes32,address,address,uint256,bool,uint256,uint256)'(
@@ -682,7 +528,7 @@ export interface IEntryPoint extends BaseContract {
       nonce?: null,
       success?: null,
       actualGasCost?: null,
-      actualGasUsed?: null
+      actualGasUsed?: null,
     ): UserOperationEventEventFilter;
     UserOperationEvent(
       userOpHash?: PromiseOrValue<BytesLike> | null,
@@ -691,173 +537,147 @@ export interface IEntryPoint extends BaseContract {
       nonce?: null,
       success?: null,
       actualGasCost?: null,
-      actualGasUsed?: null
+      actualGasUsed?: null,
     ): UserOperationEventEventFilter;
 
     'UserOperationRevertReason(bytes32,address,uint256,bytes)'(
       userOpHash?: PromiseOrValue<BytesLike> | null,
       sender?: PromiseOrValue<string> | null,
       nonce?: null,
-      revertReason?: null
+      revertReason?: null,
     ): UserOperationRevertReasonEventFilter;
     UserOperationRevertReason(
       userOpHash?: PromiseOrValue<BytesLike> | null,
       sender?: PromiseOrValue<string> | null,
       nonce?: null,
-      revertReason?: null
+      revertReason?: null,
     ): UserOperationRevertReasonEventFilter;
 
     'Withdrawn(address,address,uint256)'(
       account?: PromiseOrValue<string> | null,
       withdrawAddress?: null,
-      amount?: null
+      amount?: null,
     ): WithdrawnEventFilter;
-    Withdrawn(
-      account?: PromiseOrValue<string> | null,
-      withdrawAddress?: null,
-      amount?: null
-    ): WithdrawnEventFilter;
+    Withdrawn(account?: PromiseOrValue<string> | null, withdrawAddress?: null, amount?: null): WithdrawnEventFilter;
   };
 
   estimateGas: {
     addStake(
       _unstakeDelaySec: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     depositTo(
       account: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    getDepositInfo(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getDepositInfo(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     getSenderAddress(
       initCode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
     handleAggregatedOps(
       opsPerAggregator: IEntryPoint.UserOpsPerAggregatorStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     handleOps(
       ops: UserOperationStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     simulateHandleOp(
       op: UserOperationStruct,
       target: PromiseOrValue<string>,
       targetCallData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     simulateValidation(
       userOp: UserOperationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    unlockStake(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    unlockStake(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>;
 
     withdrawStake(
       withdrawAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     withdrawTo(
       withdrawAddress: PromiseOrValue<string>,
       withdrawAmount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     addStake(
       _unstakeDelaySec: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    balanceOf(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    balanceOf(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     depositTo(
       account: PromiseOrValue<string>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    getDepositInfo(
-      account: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getDepositInfo(account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getSenderAddress(
       initCode: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     handleAggregatedOps(
       opsPerAggregator: IEntryPoint.UserOpsPerAggregatorStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     handleOps(
       ops: UserOperationStruct[],
       beneficiary: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     simulateHandleOp(
       op: UserOperationStruct,
       target: PromiseOrValue<string>,
       targetCallData: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     simulateValidation(
       userOp: UserOperationStruct,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    unlockStake(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    unlockStake(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>;
 
     withdrawStake(
       withdrawAddress: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     withdrawTo(
       withdrawAddress: PromiseOrValue<string>,
       withdrawAmount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

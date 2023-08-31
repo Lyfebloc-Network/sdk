@@ -13,17 +13,15 @@ export class NetworkService extends Service {
 
   constructor(defaultChainId?: number) {
     super();
-    this.supportedNetworks = SupportedNetworks
-      .map((chainId) => {
-        const name = CHAIN_ID_TO_NETWORK_NAME[chainId];
-        return !name
-          ? null
-          : {
-              chainId,
-              name,
-            };
-      })
-      .filter((value) => !!value);
+    this.supportedNetworks = SupportedNetworks.map((chainId) => {
+      const name = CHAIN_ID_TO_NETWORK_NAME[chainId];
+      return !name
+        ? null
+        : {
+            chainId,
+            name,
+          };
+    }).filter((value) => !!value);
 
     if (!this.supportedNetworks.length) {
       throw new Exception('Invalid network config');

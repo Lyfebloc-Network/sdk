@@ -5,7 +5,7 @@ export class GetNftListDto {
   @IsOptional()
   @IsPositive()
   chainId?: number;
-  
+
   @IsAddress()
   account: string;
 }

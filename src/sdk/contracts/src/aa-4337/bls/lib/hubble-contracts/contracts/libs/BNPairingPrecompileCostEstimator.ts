@@ -15,16 +15,9 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../../../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../../../../../common';
 
-export interface BNPairingPrecompileCostEstimatorInterface
-  extends utils.Interface {
+export interface BNPairingPrecompileCostEstimatorInterface extends utils.Interface {
   functions: {
     'baseCost()': FunctionFragment;
     'getGasCost(uint256)': FunctionFragment;
@@ -32,27 +25,16 @@ export interface BNPairingPrecompileCostEstimatorInterface
     'run()': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic: 'baseCost' | 'getGasCost' | 'perPairCost' | 'run'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'baseCost' | 'getGasCost' | 'perPairCost' | 'run'): FunctionFragment;
 
   encodeFunctionData(functionFragment: 'baseCost', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'getGasCost',
-    values: [PromiseOrValue<BigNumberish>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'perPairCost',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'getGasCost', values: [PromiseOrValue<BigNumberish>]): string;
+  encodeFunctionData(functionFragment: 'perPairCost', values?: undefined): string;
   encodeFunctionData(functionFragment: 'run', values?: undefined): string;
 
   decodeFunctionResult(functionFragment: 'baseCost', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getGasCost', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'perPairCost',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'perPairCost', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'run', data: BytesLike): Result;
 
   events: {};
@@ -68,16 +50,12 @@ export interface BNPairingPrecompileCostEstimator extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -87,38 +65,25 @@ export interface BNPairingPrecompileCostEstimator extends BaseContract {
   functions: {
     baseCost(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getGasCost(
-      pairCount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    getGasCost(pairCount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     perPairCost(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    run(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    run(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
   };
 
   baseCost(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getGasCost(
-    pairCount: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getGasCost(pairCount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
 
   perPairCost(overrides?: CallOverrides): Promise<BigNumber>;
 
-  run(
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  run(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
   callStatic: {
     baseCost(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getGasCost(
-      pairCount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getGasCost(pairCount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
 
     perPairCost(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -130,30 +95,20 @@ export interface BNPairingPrecompileCostEstimator extends BaseContract {
   estimateGas: {
     baseCost(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getGasCost(
-      pairCount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getGasCost(pairCount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
 
     perPairCost(overrides?: CallOverrides): Promise<BigNumber>;
 
-    run(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    run(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>;
   };
 
   populateTransaction: {
     baseCost(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getGasCost(
-      pairCount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getGasCost(pairCount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     perPairCost(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    run(
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    run(overrides?: Overrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>;
   };
 }

@@ -14,15 +14,18 @@ const tokenAddress = '0x326C977E6efc84E512bB9C30f76E30c160eD06FB';
 
 async function main() {
   // initializating sdk...
-  const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, { chainId: Number(process.env.CHAIN_ID) })
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    { chainId: Number(process.env.CHAIN_ID) },
+  );
 
-  console.log('address: ', primeSdk.state.walletAddress)
+  console.log('address: ', primeSdk.state.walletAddress);
 
   // get address of LyfeblocNetworkWallet...
   const address: string = await primeSdk.getCounterFactualAddress();
   console.log('\x1b[33m%s\x1b[0m', `LyfeblocNetworkWallet address: ${address}`);
 
-  const provider = new ethers.providers.JsonRpcProvider(process.env.BUNDLER_URL)
+  const provider = new ethers.providers.JsonRpcProvider(process.env.BUNDLER_URL);
   // get erc20 Contract Interface
   const erc20Instance = new ethers.Contract(tokenAddress, ERC20_ABI, provider);
 
@@ -30,13 +33,16 @@ async function main() {
   const decimals = await erc20Instance.functions.decimals();
 
   // get transferFrom encoded data
-  const transactionData = erc20Instance.interface.encodeFunctionData('transfer', [recipient, ethers.utils.parseUnits(value, decimals)])
+  const transactionData = erc20Instance.interface.encodeFunctionData('transfer', [
+    recipient,
+    ethers.utils.parseUnits(value, decimals),
+  ]);
 
   // clear the transaction batch
   await primeSdk.clearUserOpsFromBatch();
 
   // add transactions to the batch
-  const userOpsBatch = await primeSdk.addUserOpsToBatch({to: tokenAddress, data: transactionData});
+  const userOpsBatch = await primeSdk.addUserOpsToBatch({ to: tokenAddress, data: transactionData });
   console.log('transactions: ', userOpsBatch);
 
   // estimate transactions added to the batch and get the fee data for the UserOp
@@ -51,7 +57,7 @@ async function main() {
   console.log('Waiting for transaction...');
   let userOpsReceipt = null;
   const timeout = Date.now() + 60000; // 1 minute timeout
-  while((userOpsReceipt == null) && (Date.now() < timeout)) {
+  while (userOpsReceipt == null && Date.now() < timeout) {
     await sleep(2);
     userOpsReceipt = await primeSdk.getUserOpReceipt(uoHash);
   }

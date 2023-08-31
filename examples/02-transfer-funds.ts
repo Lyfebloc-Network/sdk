@@ -11,9 +11,12 @@ const value = '0.01'; // transfer value
 
 async function main() {
   // initializating sdk...
-  const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, { chainId: Number(process.env.CHAIN_ID) })
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    { chainId: Number(process.env.CHAIN_ID) },
+  );
 
-  console.log('address: ', primeSdk.state.walletAddress)
+  console.log('address: ', primeSdk.state.walletAddress);
 
   // get address of LyfeblocNetworkWallet...
   const address: string = await primeSdk.getCounterFactualAddress();
@@ -23,7 +26,7 @@ async function main() {
   await primeSdk.clearUserOpsFromBatch();
 
   // add transactions to the batch
-  const transactionBatch = await primeSdk.addUserOpsToBatch({to: recipient, value: ethers.utils.parseEther(value)});
+  const transactionBatch = await primeSdk.addUserOpsToBatch({ to: recipient, value: ethers.utils.parseEther(value) });
   console.log('transactions: ', transactionBatch);
 
   // get balance of the account address
@@ -43,7 +46,7 @@ async function main() {
   console.log('Waiting for transaction...');
   let userOpsReceipt = null;
   const timeout = Date.now() + 60000; // 1 minute timeout
-  while((userOpsReceipt == null) && (Date.now() < timeout)) {
+  while (userOpsReceipt == null && Date.now() < timeout) {
     await sleep(2);
     userOpsReceipt = await primeSdk.getUserOpReceipt(uoHash);
   }

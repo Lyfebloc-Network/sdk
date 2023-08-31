@@ -20,7 +20,7 @@ export class Context {
       walletService: WalletService;
       networkService: NetworkService;
       apiService: ApiService;
-      dataService: DataService,
+      dataService: DataService;
     },
   ) {
     const items = [...Object.values(services)];

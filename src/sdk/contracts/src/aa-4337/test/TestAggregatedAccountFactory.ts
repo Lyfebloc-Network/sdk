@@ -15,13 +15,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export interface TestAggregatedAccountFactoryInterface extends utils.Interface {
   functions: {
@@ -30,42 +24,20 @@ export interface TestAggregatedAccountFactoryInterface extends utils.Interface {
     'getAddress(address,address,uint256)': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic:
-      | 'accountImplementation'
-      | 'createAccount'
-      | 'getAddress'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'accountImplementation' | 'createAccount' | 'getAddress'): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'accountImplementation',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'accountImplementation', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'createAccount',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
     functionFragment: 'getAddress',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: 'accountImplementation',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'createAccount',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'accountImplementation', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'createAccount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAddress', data: BytesLike): Result;
 
   events: {};
@@ -81,16 +53,12 @@ export interface TestAggregatedAccountFactory extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -104,14 +72,14 @@ export interface TestAggregatedAccountFactory extends BaseContract {
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     getAddress(
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
   };
 
@@ -121,14 +89,14 @@ export interface TestAggregatedAccountFactory extends BaseContract {
     anEntryPoint: PromiseOrValue<string>,
     owner: PromiseOrValue<string>,
     salt: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   getAddress(
     anEntryPoint: PromiseOrValue<string>,
     owner: PromiseOrValue<string>,
     salt: PromiseOrValue<BigNumberish>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   callStatic: {
@@ -138,14 +106,14 @@ export interface TestAggregatedAccountFactory extends BaseContract {
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     getAddress(
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
   };
 
@@ -158,34 +126,32 @@ export interface TestAggregatedAccountFactory extends BaseContract {
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     getAddress(
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    accountImplementation(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    accountImplementation(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     createAccount(
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     getAddress(
       anEntryPoint: PromiseOrValue<string>,
       owner: PromiseOrValue<string>,
       salt: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -28,5 +28,4 @@ export class GetExchangeOffersDto {
   @IsOptional()
   @IsBoolean()
   showZeroUsd?: boolean;
-
 }

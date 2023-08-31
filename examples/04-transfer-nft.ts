@@ -13,17 +13,20 @@ const tokenId = 4;
 
 async function main() {
   // initializating sdk...
-  const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, { chainId: Number(process.env.CHAIN_ID) })
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    { chainId: Number(process.env.CHAIN_ID) },
+  );
 
-  console.log('address: ', primeSdk.state.walletAddress)
+  console.log('address: ', primeSdk.state.walletAddress);
 
   // get address of LyfeblocNetworkWallet...
   const address: string = await primeSdk.getCounterFactualAddress();
   console.log('\x1b[33m%s\x1b[0m', `LyfeblocNetworkWallet address: ${address}`);
 
   const erc721Interface = new ethers.utils.Interface([
-    'function safeTransferFrom(address _from, address _to, uint256 _tokenId)'
-  ])
+    'function safeTransferFrom(address _from, address _to, uint256 _tokenId)',
+  ]);
 
   const erc721Data = erc721Interface.encodeFunctionData('safeTransferFrom', [address, recipient, tokenId]);
 
@@ -31,7 +34,7 @@ async function main() {
   await primeSdk.clearUserOpsFromBatch();
 
   // add transactions to the batch
-  const userOpsBatch = await primeSdk.addUserOpsToBatch({to: tokenAddress, data: erc721Data});
+  const userOpsBatch = await primeSdk.addUserOpsToBatch({ to: tokenAddress, data: erc721Data });
   console.log('transactions: ', userOpsBatch);
 
   // sign transactions added to the batch
@@ -46,7 +49,7 @@ async function main() {
   console.log('Waiting for transaction...');
   let userOpsReceipt = null;
   const timeout = Date.now() + 60000; // 1 minute timeout
-  while((userOpsReceipt == null) && (Date.now() < timeout)) {
+  while (userOpsReceipt == null && Date.now() < timeout) {
     await sleep(2);
     userOpsReceipt = await primeSdk.getUserOpReceipt(uoHash);
   }

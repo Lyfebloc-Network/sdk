@@ -8,7 +8,25 @@ import { resolveProperties } from 'ethers/lib/utils';
 import { PaymasterAPI } from './PaymasterAPI';
 import { ErrorSubject, Exception, getUserOpHash, NotPromise, packUserOp } from '../common';
 import { calcPreVerificationGas, GasOverheads } from './calcPreVerificationGas';
-import { AccountService, AccountTypes, ApiService, CreateSessionDto, isWalletProvider, Network, NetworkNames, NetworkService, SdkOptions, Session, SessionService, SignMessageDto, State, StateService, validateDto, WalletProviderLike, WalletService } from '..';
+import {
+  AccountService,
+  AccountTypes,
+  ApiService,
+  CreateSessionDto,
+  isWalletProvider,
+  Network,
+  NetworkNames,
+  NetworkService,
+  SdkOptions,
+  Session,
+  SessionService,
+  SignMessageDto,
+  State,
+  StateService,
+  validateDto,
+  WalletProviderLike,
+  WalletService,
+} from '..';
 import { Context } from '../context';
 import { DataService } from '../data';
 import { PaymasterResponse } from './VerifyingPaymasterAPI';
@@ -19,8 +37,8 @@ export interface BaseApiParams {
   accountAddress?: string;
   overheads?: Partial<GasOverheads>;
   paymasterAPI?: PaymasterAPI;
-  walletProvider: WalletProviderLike, 
-  optionsLike?: SdkOptions
+  walletProvider: WalletProviderLike;
+  optionsLike?: SdkOptions;
 }
 
 export interface UserOpResult {
@@ -63,7 +81,6 @@ export abstract class BaseAccountAPI {
    * subclass SHOULD add parameters that define the owner (signer) of this wallet
    */
   constructor(params: BaseApiParams) {
-
     const optionsLike = params.optionsLike;
 
     if (!isWalletProvider(params.walletProvider)) {
@@ -87,10 +104,15 @@ export abstract class BaseAccountAPI {
 
     this.services = {
       networkService: new NetworkService(chainId),
-      walletService: new WalletService(params.walletProvider, {
-        omitProviderNetworkCheck: omitWalletProviderNetworkCheck,
-        provider: rpcProviderUrl,
-      }, bundlerRpcUrl, chainId),
+      walletService: new WalletService(
+        params.walletProvider,
+        {
+          omitProviderNetworkCheck: omitWalletProviderNetworkCheck,
+          provider: rpcProviderUrl,
+        },
+        bundlerRpcUrl,
+        chainId,
+      ),
       sessionService: new SessionService({
         storage: sessionStorage,
       }),
@@ -106,7 +128,7 @@ export abstract class BaseAccountAPI {
     };
 
     this.context = new Context(this.services);
-    
+
     // super();
     this.provider = params.provider;
     this.overheads = params.overheads;
@@ -118,7 +140,6 @@ export abstract class BaseAccountAPI {
     this.entryPointView = EntryPoint__factory.connect(params.entryPointAddress, params.provider).connect(
       ethers.constants.AddressZero,
     );
-
   }
 
   get state(): StateService {
@@ -142,7 +163,7 @@ export abstract class BaseAccountAPI {
   /**
    * destroys
    */
-   destroy(): void {
+  destroy(): void {
     this.context.destroy();
   }
 
@@ -178,9 +199,7 @@ export abstract class BaseAccountAPI {
     return this.services.sessionService.createSession(ttl, fcmToken);
   }
 
-
   // private
-
 
   async require(
     options: {
@@ -392,8 +411,7 @@ export abstract class BaseAccountAPI {
       callData = await this.encodeBatch(target, detailsForUserOp.values, data);
     }
 
-    const callGasLimit =
-      parseNumber(detailsForUserOp.gasLimit) ?? BigNumber.from(35000)
+    const callGasLimit = parseNumber(detailsForUserOp.gasLimit) ?? BigNumber.from(35000);
 
     return {
       callData,
@@ -456,9 +474,7 @@ export abstract class BaseAccountAPI {
       try {
         feeData = await provider.getFeeData();
       } catch (err) {
-        console.warn(
-          "getGas: eth_maxPriorityFeePerGas failed, falling back to legacy gas price."
-        );
+        console.warn('getGas: eth_maxPriorityFeePerGas failed, falling back to legacy gas price.');
         const gas = await provider.getGasPrice();
 
         feeData = { maxFeePerGas: gas, maxPriorityFeePerGas: gas };
@@ -482,7 +498,6 @@ export abstract class BaseAccountAPI {
       maxPriorityFeePerGas,
     };
 
-
     let paymasterAndData: PaymasterResponse | undefined = null;
     if (this.paymasterAPI != null) {
       // fill (partial) preVerificationGas (all except the cost of the generated paymasterAndData)
@@ -490,7 +505,7 @@ export abstract class BaseAccountAPI {
         ...partialUserOp,
         preVerificationGas: this.getPreVerificationGas(partialUserOp),
       };
-      paymasterAndData = (await this.paymasterAPI.getPaymasterAndData(userOpForPm));
+      paymasterAndData = await this.paymasterAPI.getPaymasterAndData(userOpForPm);
       partialUserOp.verificationGasLimit = BigNumber.from(paymasterAndData.verificationGasLimit);
     }
     partialUserOp.paymasterAndData = paymasterAndData ? paymasterAndData.paymasterAndData : '0x';

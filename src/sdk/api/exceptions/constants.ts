@@ -6,4 +6,3 @@ export enum HttpExceptionCodes {
   InternalServerError = 'INTERNAL_SERVER_ERROR',
   ValidationError = 'VALIDATION_ERROR',
 }
-

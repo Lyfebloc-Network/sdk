@@ -5,18 +5,41 @@ import {
   isWalletConnectProvider,
   isWalletProvider,
   WalletConnect2WalletProvider,
-  WalletProviderLike
+  WalletProviderLike,
 } from './wallet';
 import { SdkOptions } from './interfaces';
-import { Network } from "./network";
-import { BatchUserOpsRequest, Exception, getGasFee, onRampApiKey, openUrl, UserOpsRequest } from "./common";
+import { Network } from './network';
+import { BatchUserOpsRequest, Exception, getGasFee, onRampApiKey, openUrl, UserOpsRequest } from './common';
 import { BigNumber, ethers, providers } from 'ethers';
 import { getNetworkConfig, Networks, onRamperAllNetworks } from './network/constants';
 import { UserOperationStruct } from './contracts/src/aa-4337/core/BaseAccount';
 import { LyfeblocNetworkWalletAPI, HttpRpcClient, VerifyingPaymasterAPI } from './base';
 import { TransactionDetailsForUserOp, TransactionGasInfoForUserOp } from './base/TransactionDetailsForUserOp';
-import { CreateSessionDto, OnRamperDto, GetAccountBalancesDto, GetAdvanceRoutesLiFiDto, GetExchangeCrossChainQuoteDto, GetExchangeOffersDto, GetNftListDto, GetStepTransactionsLiFiDto, GetTransactionDto, GetTransactionsDto, SignMessageDto, validateDto } from './dto';
-import { AccountBalances, AdvanceRoutesLiFi, BridgingQuotes, ExchangeOffer, NftList, StepTransactions, Transaction, Transactions, Session } from './';
+import {
+  CreateSessionDto,
+  OnRamperDto,
+  GetAccountBalancesDto,
+  GetAdvanceRoutesLiFiDto,
+  GetExchangeCrossChainQuoteDto,
+  GetExchangeOffersDto,
+  GetNftListDto,
+  GetStepTransactionsLiFiDto,
+  GetTransactionDto,
+  GetTransactionsDto,
+  SignMessageDto,
+  validateDto,
+} from './dto';
+import {
+  AccountBalances,
+  AdvanceRoutesLiFi,
+  BridgingQuotes,
+  ExchangeOffer,
+  NftList,
+  StepTransactions,
+  Transaction,
+  Transactions,
+  Session,
+} from './';
 import { ERC20__factory } from './contracts';
 
 /**
@@ -25,7 +48,6 @@ import { ERC20__factory } from './contracts';
  * @category Prime-Sdk
  */
 export class PrimeSdk {
-
   private lyfeblocnetworkWallet: LyfeblocNetworkWalletAPI;
   private bundler: HttpRpcClient;
   private chainId: number;
@@ -33,7 +55,6 @@ export class PrimeSdk {
   private userOpsBatch: BatchUserOpsRequest = { to: [], data: [], value: [] };
 
   constructor(walletProvider: WalletProviderLike, optionsLike: SdkOptions) {
-
     let walletConnectProvider;
     if (isWalletConnectProvider(walletProvider)) {
       walletConnectProvider = new WalletConnect2WalletProvider(walletProvider as EthereumProvider);
@@ -55,7 +76,6 @@ export class PrimeSdk {
       optionsLike.graphqlEndpoint = networkConfig.graphqlEndpoint;
     }
 
-
     let provider;
 
     if (rpcProviderUrl) {
@@ -64,7 +84,11 @@ export class PrimeSdk {
 
     let paymasterAPI = null;
     if (optionsLike.paymasterApi && optionsLike.paymasterApi.url) {
-      paymasterAPI = new VerifyingPaymasterAPI(optionsLike.paymasterApi.url, Networks[chainId].contracts.entryPoint, optionsLike.paymasterApi.context ?? {})
+      paymasterAPI = new VerifyingPaymasterAPI(
+        optionsLike.paymasterApi.url,
+        Networks[chainId].contracts.entryPoint,
+        optionsLike.paymasterApi.context ?? {},
+      );
     }
 
     this.lyfeblocnetworkWallet = new LyfeblocNetworkWalletAPI({
@@ -74,12 +98,14 @@ export class PrimeSdk {
       entryPointAddress: Networks[chainId].contracts.entryPoint,
       factoryAddress: Networks[chainId].contracts.walletFactory,
       paymasterAPI,
-    })
+    });
 
-    this.bundler = new HttpRpcClient(optionsLike.bundlerRpcUrl, Networks[chainId].contracts.entryPoint, Networks[chainId].chainId);
-
+    this.bundler = new HttpRpcClient(
+      optionsLike.bundlerRpcUrl,
+      Networks[chainId].contracts.entryPoint,
+      Networks[chainId].chainId,
+    );
   }
-
 
   // exposes
   get state(): StateService {
@@ -139,7 +165,7 @@ export class PrimeSdk {
 
   async estimate(gasDetails?: TransactionGasInfoForUserOp) {
     if (this.userOpsBatch.to.length < 1) {
-      throw new Error("cannot sign empty transaction batch");
+      throw new Error('cannot sign empty transaction batch');
     }
 
     const tx: TransactionDetailsForUserOp = {
@@ -147,7 +173,7 @@ export class PrimeSdk {
       values: this.userOpsBatch.value,
       data: this.userOpsBatch.data,
       ...gasDetails,
-    }
+    };
 
     const partialtx = await this.lyfeblocnetworkWallet.createUnsignedUserOp({
       ...tx,
@@ -169,18 +195,18 @@ export class PrimeSdk {
 
     if (bundlerGasEstimate.preVerificationGas) {
       partialtx.preVerificationGas = BigNumber.from(bundlerGasEstimate.preVerificationGas);
-      partialtx.verificationGasLimit = BigNumber.from(bundlerGasEstimate.verificationGasLimit ?? bundlerGasEstimate.verificationGas);
+      partialtx.verificationGasLimit = BigNumber.from(
+        bundlerGasEstimate.verificationGasLimit ?? bundlerGasEstimate.verificationGas,
+      );
       partialtx.callGasLimit = BigNumber.from(bundlerGasEstimate.callGasLimit);
     }
 
     return partialtx;
-
   }
 
   async getGasFee() {
     const version = await this.bundler.getBundlerVersion();
-    if (version.includes('skandha'))
-      return this.bundler.getSkandhaGasPrice();
+    if (version.includes('skandha')) return this.bundler.getSkandhaGasPrice();
     return getGasFee(this.lyfeblocnetworkWallet.provider as providers.JsonRpcProvider);
   }
 
@@ -202,9 +228,12 @@ export class PrimeSdk {
       await this.getCounterFactualAddress();
     }
     const token = ethers.utils.getAddress(tokenAddress);
-    const erc20Contract = ERC20__factory.connect(token, this.lyfeblocnetworkWallet.services.walletService.getWalletProvider());
+    const erc20Contract = ERC20__factory.connect(
+      token,
+      this.lyfeblocnetworkWallet.services.walletService.getWalletProvider(),
+    );
     const dec = await erc20Contract.functions.decimals();
-    const balance = await erc20Contract.functions.balanceOf(this.lyfeblocnetworkWallet.accountAddress)
+    const balance = await erc20Contract.functions.balanceOf(this.lyfeblocnetworkWallet.accountAddress);
     return ethers.utils.formatUnits(balance[0], dec);
   }
 
@@ -216,9 +245,7 @@ export class PrimeSdk {
     return this.lyfeblocnetworkWallet.getUserOpHash(userOp);
   }
 
-  async addUserOpsToBatch(
-    tx: UserOpsRequest,
-  ): Promise<BatchUserOpsRequest> {
+  async addUserOpsToBatch(tx: UserOpsRequest): Promise<BatchUserOpsRequest> {
     if (!tx.data && !tx.value) throw new Error('Data and Value both cannot be empty');
     this.userOpsBatch.to.push(tx.to);
     this.userOpsBatch.value.push(tx.value ?? BigNumber.from(0));
@@ -248,11 +275,13 @@ export class PrimeSdk {
     else {
       const networks = params.onlyCryptoNetworks.split(',');
       for (const network in networks) {
-        if (!onRamperAllNetworks.includes(network)) throw new Error('Included Networks which are not supported. Please Check');
+        if (!onRamperAllNetworks.includes(network))
+          throw new Error('Included Networks which are not supported. Please Check');
       }
     }
 
-    const url = `https://buy.onramper.com/?networkWallets=ETHEREUM:${await this.getCounterFactualAddress()}` +
+    const url =
+      `https://buy.onramper.com/?networkWallets=ETHEREUM:${await this.getCounterFactualAddress()}` +
       `&apiKey=${onRampApiKey}` +
       `&onlyCryptoNetworks=${params.onlyCryptoNetworks}` +
       `${params.defaultCrypto ? `&defaultCrypto=${params.defaultCrypto}` : ``}` +
@@ -276,10 +305,10 @@ export class PrimeSdk {
   }
 
   /**
- * gets account balances
- * @param dto
- * @return Promise<AccountBalances>
- */
+   * gets account balances
+   * @param dto
+   * @return Promise<AccountBalances>
+   */
   async getAccountBalances(dto: GetAccountBalancesDto = {}): Promise<AccountBalances> {
     const { account, tokens, chainId, provider } = await validateDto(dto, GetAccountBalancesDto, {
       addressKeys: ['account', 'tokens'],
@@ -300,10 +329,10 @@ export class PrimeSdk {
   }
 
   /**
- * gets transaction
- * @param dto
- * @return Promise<Transaction>
- */
+   * gets transaction
+   * @param dto
+   * @return Promise<Transaction>
+   */
   async getTransaction(dto: GetTransactionDto): Promise<Transaction> {
     const { hash } = await validateDto(dto, GetTransactionDto);
 
@@ -340,10 +369,10 @@ export class PrimeSdk {
   }
 
   /**
-  * gets NFT list belonging to account
-  * @param dto
-  * @return Promise<NftList>
-  */
+   * gets NFT list belonging to account
+   * @param dto
+   * @return Promise<NftList>
+   */
   async getNftList(dto: GetNftListDto): Promise<NftList> {
     const { account, chainId } = await validateDto(dto, GetNftListDto, {
       addressKeys: ['account'],
@@ -362,14 +391,18 @@ export class PrimeSdk {
   }
 
   /**
- * gets exchange offers
- * @param dto
- * @return Promise<ExchangeOffer[]>
- */
+   * gets exchange offers
+   * @param dto
+   * @return Promise<ExchangeOffer[]>
+   */
   async getExchangeOffers(dto: GetExchangeOffersDto): Promise<ExchangeOffer[]> {
-    const { fromTokenAddress, toTokenAddress, fromAmount, fromChainId, showZeroUsd } = await validateDto(dto, GetExchangeOffersDto, {
-      addressKeys: ['fromTokenAddress', 'toTokenAddress'],
-    });
+    const { fromTokenAddress, toTokenAddress, fromAmount, fromChainId, showZeroUsd } = await validateDto(
+      dto,
+      GetExchangeOffersDto,
+      {
+        addressKeys: ['fromTokenAddress', 'toTokenAddress'],
+      },
+    );
 
     let { toAddress, fromAddress } = dto;
 
@@ -399,17 +432,10 @@ export class PrimeSdk {
   }
 
   async getAdvanceRoutesLiFi(dto: GetAdvanceRoutesLiFiDto): Promise<AdvanceRoutesLiFi> {
-    const {
-      fromChainId,
-      toChainId,
-      fromTokenAddress,
-      toTokenAddress,
-      fromAmount,
-      allowSwitchChain,
-      showZeroUsd,
-    } = await validateDto(dto, GetAdvanceRoutesLiFiDto, {
-      addressKeys: ['fromTokenAddress', 'toTokenAddress'],
-    });
+    const { fromChainId, toChainId, fromTokenAddress, toTokenAddress, fromAmount, allowSwitchChain, showZeroUsd } =
+      await validateDto(dto, GetAdvanceRoutesLiFiDto, {
+        addressKeys: ['fromTokenAddress', 'toTokenAddress'],
+      });
 
     let { toAddress, fromAddress } = dto;
 
@@ -441,10 +467,10 @@ export class PrimeSdk {
   }
 
   /**
- * gets multi chain quotes
- * @param dto
- * @return Promise<MutliChainQuotes>
- */
+   * gets multi chain quotes
+   * @param dto
+   * @return Promise<MutliChainQuotes>
+   */
   async getCrossChainQuotes(dto: GetExchangeCrossChainQuoteDto): Promise<BridgingQuotes> {
     const {
       fromChainId,

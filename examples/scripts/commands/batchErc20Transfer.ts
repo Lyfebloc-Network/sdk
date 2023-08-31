@@ -1,10 +1,10 @@
-import { ethers } from "ethers";
+import { ethers } from 'ethers';
 import { ERC20_ABI } from '../../../src/sdk/helpers/abi/ERC20_ABI';
 // @ts-ignore
-import config from "../../config.json";
+import config from '../../config.json';
 import { PrimeSdk } from '../../../src';
-import { printOp } from "../../../src/sdk/common/OperationUtils";
-import { sleep } from "../../../src/sdk/common";
+import { printOp } from '../../../src/sdk/common/OperationUtils';
+import { sleep } from '../../../src/sdk/common';
 
 // This example requires several layers of calls:
 // EntryPoint
@@ -12,23 +12,16 @@ import { sleep } from "../../../src/sdk/common";
 //    ┕> token.transfer (recipient 1)
 //    ⋮
 //    ┕> token.transfer (recipient N)
-export default async function main(
-  tkn: string,
-  t: Array<string>,
-  amt: string,
-) {
-  const primeSdk = new PrimeSdk({ privateKey: config.signingKey }, { chainId: config.chainId })
+export default async function main(tkn: string, t: Array<string>, amt: string) {
+  const primeSdk = new PrimeSdk({ privateKey: config.signingKey }, { chainId: config.chainId });
 
   const address = await primeSdk.getCounterFactualAddress();
-  console.log(`Lyfebloc Network address: ${address}`)
+  console.log(`Lyfebloc Network address: ${address}`);
 
   const provider = new ethers.providers.JsonRpcProvider(config.rpcProviderUrl);
   const token = ethers.utils.getAddress(tkn);
   const erc20 = new ethers.Contract(token, ERC20_ABI, provider);
-  const [symbol, decimals] = await Promise.all([
-    erc20.symbol(),
-    erc20.decimals(),
-  ]);
+  const [symbol, decimals] = await Promise.all([erc20.symbol(), erc20.decimals()]);
   const amount = ethers.utils.parseUnits(amt, decimals);
   // clear the transaction batch
   await primeSdk.clearUserOpsFromBatch();
@@ -37,20 +30,12 @@ export default async function main(
   let data: Array<string> = [];
   t.map((addr) => addr.trim()).forEach((addr) => {
     dest = [...dest, erc20.address];
-    data = [
-      ...data,
-      erc20.interface.encodeFunctionData("transfer", [
-        ethers.utils.getAddress(addr),
-        amount,
-      ]),
-    ];
+    data = [...data, erc20.interface.encodeFunctionData('transfer', [ethers.utils.getAddress(addr), amount])];
   });
-  console.log(
-    `Batch transferring ${amt} ${symbol} to ${dest.length} recipients...`
-  );
+  console.log(`Batch transferring ${amt} ${symbol} to ${dest.length} recipients...`);
 
-  for (let i=0;i<dest.length;i++) {
-    await primeSdk.addUserOpsToBatch({to: dest[i], data: data[i]})
+  for (let i = 0; i < dest.length; i++) {
+    await primeSdk.addUserOpsToBatch({ to: dest[i], data: data[i] });
   }
 
   const op = await primeSdk.estimate();
@@ -64,7 +49,7 @@ export default async function main(
   console.log('Waiting for transaction...');
   let userOpsReceipt = null;
   const timeout = Date.now() + 60000; // 1 minute timeout
-  while((userOpsReceipt == null) && (Date.now() < timeout)) {
+  while (userOpsReceipt == null && Date.now() < timeout) {
     await sleep(2);
     userOpsReceipt = await primeSdk.getUserOpReceipt(uoHash);
   }

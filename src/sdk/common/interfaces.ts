@@ -1,4 +1,4 @@
-import { BigNumberish } from "ethers";
+import { BigNumberish } from 'ethers';
 
 export interface BatchUserOpsRequest {
   to: string[];
@@ -6,7 +6,7 @@ export interface BatchUserOpsRequest {
   value?: BigNumberish[];
 }
 
-export interface UserOpsRequest { 
+export interface UserOpsRequest {
   to: string;
   data?: string;
   value?: BigNumberish;

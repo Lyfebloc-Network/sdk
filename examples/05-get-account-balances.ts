@@ -4,20 +4,22 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 async function main() {
-    // initializating sdk...
-    const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, {
-        chainId: Number(process.env.CHAIN_ID),
-        projectKey: '', // project key
-    });
+  // initializating sdk...
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    {
+      chainId: Number(process.env.CHAIN_ID),
+      projectKey: '', // project key
+    },
+  );
 
-    const balances = await primeSdk.getAccountBalances({
-        account: '', // account address
-        chainId: 1,
-    });
-    console.log('\x1b[33m%s\x1b[0m', `LyfeblocNetworkWallet balances:`, balances);
+  const balances = await primeSdk.getAccountBalances({
+    account: '', // account address
+    chainId: 1,
+  });
+  console.log('\x1b[33m%s\x1b[0m', `LyfeblocNetworkWallet balances:`, balances);
 }
 
 main()
   .catch(console.error)
   .finally(() => process.exit());
-

@@ -1,7 +1,18 @@
 import { gql } from '@apollo/client/core';
 import { HeaderNames, ObjectSubject, Service } from '../common';
 import { Route } from '@lifi/sdk';
-import { AccountBalances, AdvanceRoutesLiFi, BridgingQuotes, ExchangeOffer, ExchangeOffers, NftList, StepTransaction, StepTransactions, Transaction, Transactions } from './classes';
+import {
+  AccountBalances,
+  AdvanceRoutesLiFi,
+  BridgingQuotes,
+  ExchangeOffer,
+  ExchangeOffers,
+  NftList,
+  StepTransaction,
+  StepTransactions,
+  Transaction,
+  Transactions,
+} from './classes';
 import { BigNumber } from 'ethers';
 import { CrossChainServiceProvider, LiFiBridge } from './constants';
 
@@ -24,7 +35,7 @@ export class DataService extends Service {
 
       result = {
         [HeaderNames.ProjectKey]: key,
-      }
+      };
     }
 
     return result;
@@ -36,14 +47,19 @@ export class DataService extends Service {
     return this.currentProject;
   }
 
-  async getAccountBalances(account: string, tokens: string[], ChainId: number, provider?: string): Promise<AccountBalances> {
+  async getAccountBalances(
+    account: string,
+    tokens: string[],
+    ChainId: number,
+    provider?: string,
+  ): Promise<AccountBalances> {
     const { apiService } = this.services;
 
     const { result } = await apiService.query<{
       result: AccountBalances;
     }>(
       gql`
-        query($ChainId: Int!, $account: String!, $tokens: [String!], $provider: String) {
+        query ($ChainId: Int!, $account: String!, $tokens: [String!], $provider: String) {
           result: accountBalances(chainId: $ChainId, account: $account, tokens: $tokens, provider: $provider) {
             items {
               token
@@ -58,7 +74,7 @@ export class DataService extends Service {
           account,
           ChainId,
           tokens,
-          provider
+          provider,
         },
         models: {
           result: AccountBalances,
@@ -76,7 +92,7 @@ export class DataService extends Service {
       result: Transaction;
     }>(
       gql`
-        query($chainId: Int, $hash: String!) {
+        query ($chainId: Int, $hash: String!) {
           result: transaction(chainId: $chainId, hash: $hash) {
             blockHash
             blockNumber
@@ -119,7 +135,7 @@ export class DataService extends Service {
       result: Transactions;
     }>(
       gql`
-        query($ChainId: Int, $account: String!) {
+        query ($ChainId: Int, $account: String!) {
           result: transactions(chainId: $ChainId, account: $account) {
             items {
               blockNumber
@@ -175,7 +191,7 @@ export class DataService extends Service {
       result: NftList;
     }>(
       gql`
-        query($ChainId: Int, $account: String!) {
+        query ($ChainId: Int, $account: String!) {
           result: nftList(chainId: $ChainId, account: $account) {
             items {
               contractName
@@ -227,7 +243,7 @@ export class DataService extends Service {
       result: ExchangeOffers;
     }>(
       gql`
-        query(
+        query (
           $fromChainId: Int!
           $account: String!
           $fromTokenAddress: String!
@@ -301,7 +317,7 @@ export class DataService extends Service {
       result: string;
     }>(
       gql`
-        query(
+        query (
           $account: String!
           $fromTokenAddress: String!
           $toTokenAddress: String!
@@ -348,7 +364,7 @@ export class DataService extends Service {
     try {
       data = JSON.parse(result['data']);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
     return data;
   }
@@ -366,14 +382,8 @@ export class DataService extends Service {
         result: StepTransaction[];
       }>(
         gql`
-        query(
-          $route: String!
-          $account: String!
-        ) {
-          result: getStepTransactions(
-            route: $route
-            account: $account
-          ) {
+          query ($route: String!, $account: String!) {
+            result: getStepTransactions(route: $route, account: $account) {
               to
               gasLimit
               gasPrice
@@ -381,21 +391,22 @@ export class DataService extends Service {
               value
               chainId
               type
+            }
           }
-        }`,
+        `,
         {
           variables: {
             route,
             account,
           },
-        }
+        },
       );
       transactions = result;
     } catch (err) {
       console.log(err);
     }
     return {
-      items: transactions
+      items: transactions,
     };
   }
 
@@ -419,7 +430,7 @@ export class DataService extends Service {
       result: BridgingQuotes;
     }>(
       gql`
-        query(
+        query (
           $account: String!
           $fromTokenAddress: String!
           $toTokenAddress: String!
@@ -523,4 +534,3 @@ export class DataService extends Service {
     return result ? result : null;
   }
 }
-

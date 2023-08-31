@@ -15,13 +15,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export interface BLSAccountFactoryInterface extends utils.Interface {
   functions: {
@@ -30,17 +24,9 @@ export interface BLSAccountFactoryInterface extends utils.Interface {
     'getAddress(address,uint256,uint256[4])': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic:
-      | 'accountImplementation'
-      | 'createAccount'
-      | 'getAddress'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'accountImplementation' | 'createAccount' | 'getAddress'): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'accountImplementation',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'accountImplementation', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'createAccount',
     values: [
@@ -50,9 +36,9 @@ export interface BLSAccountFactoryInterface extends utils.Interface {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
-      ]
-    ]
+        PromiseOrValue<BigNumberish>,
+      ],
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: 'getAddress',
@@ -63,19 +49,13 @@ export interface BLSAccountFactoryInterface extends utils.Interface {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
-      ]
-    ]
+        PromiseOrValue<BigNumberish>,
+      ],
+    ],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: 'accountImplementation',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'createAccount',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'accountImplementation', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'createAccount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAddress', data: BytesLike): Result;
 
   events: {};
@@ -91,16 +71,12 @@ export interface BLSAccountFactory extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -117,9 +93,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     getAddress(
@@ -129,9 +105,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
   };
 
@@ -144,9 +120,9 @@ export interface BLSAccountFactory extends BaseContract {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
     ],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   getAddress(
@@ -156,9 +132,9 @@ export interface BLSAccountFactory extends BaseContract {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
     ],
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   callStatic: {
@@ -171,9 +147,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     getAddress(
@@ -183,9 +159,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
   };
 
@@ -201,9 +177,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     getAddress(
@@ -213,16 +189,14 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    accountImplementation(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    accountImplementation(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     createAccount(
       anEntryPoint: PromiseOrValue<string>,
@@ -231,9 +205,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     getAddress(
@@ -243,9 +217,9 @@ export interface BLSAccountFactory extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

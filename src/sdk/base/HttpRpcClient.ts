@@ -34,7 +34,10 @@ export class HttpRpcClient {
 
   async getVerificationGasInfo(tx: UserOperationStruct): Promise<any> {
     const hexifiedUserOp = deepHexlify(await resolveProperties(tx));
-    const response = await this.userOpJsonRpcProvider.send('eth_estimateUserOperationGas', [hexifiedUserOp, this.entryPointAddress]);
+    const response = await this.userOpJsonRpcProvider.send('eth_estimateUserOperationGas', [
+      hexifiedUserOp,
+      this.entryPointAddress,
+    ]);
     return response;
   }
 
@@ -64,9 +67,7 @@ export class HttpRpcClient {
       const { maxFeePerGas, maxPriorityFeePerGas } = await this.userOpJsonRpcProvider.send('skandha_getGasPrice', []);
       return { maxFeePerGas, maxPriorityFeePerGas };
     } catch (err) {
-      console.warn(
-        "getGas: skandha_getGasPrice failed, falling back to legacy gas price."
-      );
+      console.warn('getGas: skandha_getGasPrice failed, falling back to legacy gas price.');
       const gas = await this.userOpJsonRpcProvider.getGasPrice();
       return { maxFeePerGas: gas, maxPriorityFeePerGas: gas };
     }

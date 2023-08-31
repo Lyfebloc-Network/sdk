@@ -14,13 +14,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export interface UniversalSigValidatorInterface extends utils.Interface {
   functions: {
@@ -29,48 +23,24 @@ export interface UniversalSigValidatorInterface extends utils.Interface {
     'isValidSigWithSideEffects(address,bytes32,bytes)': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic:
-      | 'isValidSig'
-      | 'isValidSigImpl'
-      | 'isValidSigWithSideEffects'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'isValidSig' | 'isValidSigImpl' | 'isValidSigWithSideEffects'): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: 'isValidSig',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(
     functionFragment: 'isValidSigImpl',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<boolean>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>, PromiseOrValue<boolean>],
   ): string;
   encodeFunctionData(
     functionFragment: 'isValidSigWithSideEffects',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
   ): string;
 
   decodeFunctionResult(functionFragment: 'isValidSig', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'isValidSigImpl',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'isValidSigWithSideEffects',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'isValidSigImpl', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isValidSigWithSideEffects', data: BytesLike): Result;
 
   events: {};
 }
@@ -85,16 +55,12 @@ export interface UniversalSigValidator extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -106,7 +72,7 @@ export interface UniversalSigValidator extends BaseContract {
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     isValidSigImpl(
@@ -114,14 +80,14 @@ export interface UniversalSigValidator extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -129,7 +95,7 @@ export interface UniversalSigValidator extends BaseContract {
     _signer: PromiseOrValue<string>,
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   isValidSigImpl(
@@ -137,14 +103,14 @@ export interface UniversalSigValidator extends BaseContract {
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
     allowSideEffects: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   isValidSigWithSideEffects(
     _signer: PromiseOrValue<string>,
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -152,7 +118,7 @@ export interface UniversalSigValidator extends BaseContract {
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     isValidSigImpl(
@@ -160,14 +126,14 @@ export interface UniversalSigValidator extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
   };
 
@@ -178,7 +144,7 @@ export interface UniversalSigValidator extends BaseContract {
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     isValidSigImpl(
@@ -186,14 +152,14 @@ export interface UniversalSigValidator extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
@@ -202,7 +168,7 @@ export interface UniversalSigValidator extends BaseContract {
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     isValidSigImpl(
@@ -210,14 +176,14 @@ export interface UniversalSigValidator extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

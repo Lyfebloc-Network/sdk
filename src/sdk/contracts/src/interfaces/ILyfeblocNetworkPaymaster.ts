@@ -14,19 +14,9 @@ import type {
   Signer,
   utils,
 } from 'ethers';
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from '@ethersproject/abi';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -53,7 +43,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -78,57 +68,26 @@ export interface ILyfeblocNetworkPaymasterInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic:
-      | 'checkSponsorFunds'
-      | 'depositFunds'
-      | 'getHash'
-      | 'postOp'
-      | 'validatePaymasterUserOp'
+    nameOrSignatureOrTopic: 'checkSponsorFunds' | 'depositFunds' | 'getHash' | 'postOp' | 'validatePaymasterUserOp',
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'checkSponsorFunds',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'depositFunds',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getHash',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'checkSponsorFunds', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'depositFunds', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getHash', values: [UserOperationStruct]): string;
   encodeFunctionData(
     functionFragment: 'postOp',
-    values: [
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
     functionFragment: 'validatePaymasterUserOp',
-    values: [
-      UserOperationStruct,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [UserOperationStruct, PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>],
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: 'checkSponsorFunds',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'depositFunds',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'checkSponsorFunds', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'depositFunds', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getHash', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'postOp', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'validatePaymasterUserOp',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'validatePaymasterUserOp', data: BytesLike): Result;
 
   events: {
     'SponsorTransaction(bool,address,address,bytes)': EventFragment;
@@ -143,13 +102,9 @@ export interface SponsorTransactionEventObject {
   sender: string;
   userOpHash: string;
 }
-export type SponsorTransactionEvent = TypedEvent<
-  [boolean, string, string, string],
-  SponsorTransactionEventObject
->;
+export type SponsorTransactionEvent = TypedEvent<[boolean, string, string, string], SponsorTransactionEventObject>;
 
-export type SponsorTransactionEventFilter =
-  TypedEventFilter<SponsorTransactionEvent>;
+export type SponsorTransactionEventFilter = TypedEventFilter<SponsorTransactionEvent>;
 
 export interface ILyfeblocNetworkPaymaster extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -161,16 +116,12 @@ export interface ILyfeblocNetworkPaymaster extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -178,91 +129,67 @@ export interface ILyfeblocNetworkPaymaster extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    checkSponsorFunds(
-      _sponsor: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    checkSponsorFunds(_sponsor: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    depositFunds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    depositFunds(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
-    getHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[string]>;
 
     postOp(
       mode: PromiseOrValue<BigNumberish>,
       context: PromiseOrValue<BytesLike>,
       actualGasCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     validatePaymasterUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       maxCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
-  checkSponsorFunds(
-    _sponsor: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  checkSponsorFunds(_sponsor: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-  depositFunds(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  depositFunds(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
-  getHash(
-    userOp: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   postOp(
     mode: PromiseOrValue<BigNumberish>,
     context: PromiseOrValue<BytesLike>,
     actualGasCost: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   validatePaymasterUserOp(
     userOp: UserOperationStruct,
     userOpHash: PromiseOrValue<BytesLike>,
     maxCost: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    checkSponsorFunds(
-      _sponsor: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    checkSponsorFunds(_sponsor: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     depositFunds(overrides?: CallOverrides): Promise<void>;
 
-    getHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
     postOp(
       mode: PromiseOrValue<BigNumberish>,
       context: PromiseOrValue<BytesLike>,
       actualGasCost: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     validatePaymasterUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       maxCost: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
-    ): Promise<
-      [string, BigNumber] & { context: string; validationData: BigNumber }
-    >;
+      overrides?: CallOverrides,
+    ): Promise<[string, BigNumber] & { context: string; validationData: BigNumber }>;
   };
 
   filters: {
@@ -270,73 +197,57 @@ export interface ILyfeblocNetworkPaymaster extends BaseContract {
       success?: null,
       paymaster?: null,
       sender?: null,
-      userOpHash?: null
+      userOpHash?: null,
     ): SponsorTransactionEventFilter;
     SponsorTransaction(
       success?: null,
       paymaster?: null,
       sender?: null,
-      userOpHash?: null
+      userOpHash?: null,
     ): SponsorTransactionEventFilter;
   };
 
   estimateGas: {
-    checkSponsorFunds(
-      _sponsor: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    checkSponsorFunds(_sponsor: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    depositFunds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    depositFunds(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>;
 
-    getHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
     postOp(
       mode: PromiseOrValue<BigNumberish>,
       context: PromiseOrValue<BytesLike>,
       actualGasCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     validatePaymasterUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       maxCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    checkSponsorFunds(
-      _sponsor: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    checkSponsorFunds(_sponsor: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    depositFunds(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    depositFunds(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>;
 
-    getHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     postOp(
       mode: PromiseOrValue<BigNumberish>,
       context: PromiseOrValue<BytesLike>,
       actualGasCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     validatePaymasterUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       maxCost: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

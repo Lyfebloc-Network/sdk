@@ -15,13 +15,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -48,7 +42,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -88,78 +82,36 @@ export interface BLSSignatureAggregatorInterface extends utils.Interface {
       | 'getUserOpPublicKey'
       | 'userOpToMessage'
       | 'validateSignatures'
-      | 'validateUserOpSignature'
+      | 'validateUserOpSignature',
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'BLS_DOMAIN',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'BLS_DOMAIN', values?: undefined): string;
   encodeFunctionData(functionFragment: 'N', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'addStake',
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'aggregateSignatures',
-    values: [UserOperationStruct[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getTrailingPublicKey',
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getUserOpHash',
-    values: [UserOperationStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getUserOpPublicKey',
-    values: [UserOperationStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'userOpToMessage',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'aggregateSignatures', values: [UserOperationStruct[]]): string;
+  encodeFunctionData(functionFragment: 'getTrailingPublicKey', values: [PromiseOrValue<BytesLike>]): string;
+  encodeFunctionData(functionFragment: 'getUserOpHash', values: [UserOperationStruct]): string;
+  encodeFunctionData(functionFragment: 'getUserOpPublicKey', values: [UserOperationStruct]): string;
+  encodeFunctionData(functionFragment: 'userOpToMessage', values: [UserOperationStruct]): string;
   encodeFunctionData(
     functionFragment: 'validateSignatures',
-    values: [UserOperationStruct[], PromiseOrValue<BytesLike>]
+    values: [UserOperationStruct[], PromiseOrValue<BytesLike>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'validateUserOpSignature',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'validateUserOpSignature', values: [UserOperationStruct]): string;
 
   decodeFunctionResult(functionFragment: 'BLS_DOMAIN', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'N', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'addStake', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'aggregateSignatures',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getTrailingPublicKey',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getUserOpHash',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getUserOpPublicKey',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'userOpToMessage',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateSignatures',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateUserOpSignature',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'aggregateSignatures', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getTrailingPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getUserOpHash', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getUserOpPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'userOpToMessage', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateSignatures', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateUserOpSignature', data: BytesLike): Result;
 
   events: {};
 }
@@ -174,16 +126,12 @@ export interface BLSSignatureAggregator extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -198,51 +146,45 @@ export interface BLSSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     aggregateSignatures(
       userOps: UserOperationStruct[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string] & { aggregatedSignature: string }>;
 
     getTrailingPublicKey(
       data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [[BigNumber, BigNumber, BigNumber, BigNumber]] & {
         publicKey: [BigNumber, BigNumber, BigNumber, BigNumber];
       }
     >;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[string]>;
 
     getUserOpPublicKey(
       userOp: UserOperationStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<
       [[BigNumber, BigNumber, BigNumber, BigNumber]] & {
         publicKey: [BigNumber, BigNumber, BigNumber, BigNumber];
       }
     >;
 
-    userOpToMessage(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[[BigNumber, BigNumber]]>;
+    userOpToMessage(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[[BigNumber, BigNumber]]>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[void]>;
 
     validateUserOpSignature(
       userOp: UserOperationStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string] & { sigForUserOp: string }>;
   };
 
@@ -253,44 +195,32 @@ export interface BLSSignatureAggregator extends BaseContract {
   addStake(
     entryPoint: PromiseOrValue<string>,
     delay: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  aggregateSignatures(
-    userOps: UserOperationStruct[],
-    overrides?: CallOverrides
-  ): Promise<string>;
+  aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<string>;
 
   getTrailingPublicKey(
     data: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
-  getUserOpHash(
-    userOp: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   getUserOpPublicKey(
     userOp: UserOperationStruct,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
-  userOpToMessage(
-    userOp: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber]>;
+  userOpToMessage(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
   validateSignatures(
     userOps: UserOperationStruct[],
     signature: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<void>;
 
-  validateUserOpSignature(
-    userOp: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  validateUserOpSignature(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     BLS_DOMAIN(overrides?: CallOverrides): Promise<string>;
@@ -300,44 +230,32 @@ export interface BLSSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<string>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<string>;
 
     getTrailingPublicKey(
       data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
     getUserOpPublicKey(
       userOp: UserOperationStruct,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
-    userOpToMessage(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber]>;
+    userOpToMessage(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<[BigNumber, BigNumber]>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    validateUserOpSignature(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    validateUserOpSignature(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -350,44 +268,26 @@ export interface BLSSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<BigNumber>;
 
-    getTrailingPublicKey(
-      data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getTrailingPublicKey(data: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
-    getUserOpPublicKey(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getUserOpPublicKey(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
-    userOpToMessage(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    userOpToMessage(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    validateUserOpSignature(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    validateUserOpSignature(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -398,43 +298,25 @@ export interface BLSSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getTrailingPublicKey(
-      data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getTrailingPublicKey(data: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getUserOpHash(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getUserOpHash(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getUserOpPublicKey(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getUserOpPublicKey(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    userOpToMessage(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    userOpToMessage(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    validateUserOpSignature(
-      userOp: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    validateUserOpSignature(userOp: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

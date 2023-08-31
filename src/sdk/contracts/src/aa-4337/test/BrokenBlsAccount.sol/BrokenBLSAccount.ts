@@ -14,19 +14,9 @@ import type {
   Signer,
   utils,
 } from 'ethers';
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from '@ethersproject/abi';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -53,7 +43,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -133,52 +123,27 @@ export interface BrokenBLSAccountInterface extends utils.Interface {
       | 'upgradeTo'
       | 'upgradeToAndCall'
       | 'validateUserOp'
-      | 'withdrawDepositTo'
+      | 'withdrawDepositTo',
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'addDeposit',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'addGuardian',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'addOwner',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'aggregator',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'entryPoint',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'addDeposit', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'addGuardian', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'addOwner', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'aggregator', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'entryPoint', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'execute',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(
     functionFragment: 'executeBatch',
-    values: [PromiseOrValue<string>[], PromiseOrValue<BytesLike>[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BytesLike>[]],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'getBlsPublicKey',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'getDeposit',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'getBlsPublicKey', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getDeposit', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'initialize(address,address)',
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>],
   ): string;
   encodeFunctionData(
     functionFragment: 'initialize(address,uint256[4])',
@@ -188,42 +153,23 @@ export interface BrokenBLSAccountInterface extends utils.Interface {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
-      ]
-    ]
+        PromiseOrValue<BigNumberish>,
+      ],
+    ],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'isGuardian',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'isOwner',
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'isGuardian', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'isOwner', values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: 'isValidSig',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(
     functionFragment: 'isValidSigImpl',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<boolean>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>, PromiseOrValue<boolean>],
   ): string;
   encodeFunctionData(
     functionFragment: 'isValidSigWithSideEffects',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(functionFragment: 'nonce', values?: undefined): string;
   encodeFunctionData(
@@ -233,8 +179,8 @@ export interface BrokenBLSAccountInterface extends utils.Interface {
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>[],
       PromiseOrValue<BigNumberish>[],
-      PromiseOrValue<BytesLike>
-    ]
+      PromiseOrValue<BytesLike>,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: 'onERC1155Received',
@@ -243,34 +189,17 @@ export interface BrokenBLSAccountInterface extends utils.Interface {
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+      PromiseOrValue<BytesLike>,
+    ],
   ): string;
   encodeFunctionData(
     functionFragment: 'onERC721Received',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>, PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'proxiableUUID',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'removeGuardian',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'removeOwner',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'supportsInterface',
-    values: [PromiseOrValue<BytesLike>]
-  ): string;
+  encodeFunctionData(functionFragment: 'proxiableUUID', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'removeGuardian', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'removeOwner', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'supportsInterface', values: [PromiseOrValue<BytesLike>]): string;
   encodeFunctionData(
     functionFragment: 'tokensReceived',
     values: [
@@ -279,121 +208,54 @@ export interface BrokenBLSAccountInterface extends utils.Interface {
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BytesLike>,
-      PromiseOrValue<BytesLike>
-    ]
+      PromiseOrValue<BytesLike>,
+    ],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'updateEntryPoint',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'upgradeTo',
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'updateEntryPoint', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'upgradeTo', values: [PromiseOrValue<string>]): string;
   encodeFunctionData(
     functionFragment: 'upgradeToAndCall',
-    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(
     functionFragment: 'validateUserOp',
-    values: [
-      UserOperationStruct,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [UserOperationStruct, PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>],
   ): string;
   encodeFunctionData(
     functionFragment: 'withdrawDepositTo',
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
 
   decodeFunctionResult(functionFragment: 'addDeposit', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'addGuardian',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'addGuardian', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'addOwner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'aggregator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'entryPoint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'execute', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'executeBatch',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'getBlsPublicKey',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'executeBatch', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getBlsPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getDeposit', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'initialize(address,address)',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'initialize(address,uint256[4])',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'initialize(address,address)', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'initialize(address,uint256[4])', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isGuardian', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isOwner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isValidSig', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'isValidSigImpl',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'isValidSigWithSideEffects',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'isValidSigImpl', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isValidSigWithSideEffects', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'nonce', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'onERC1155BatchReceived',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'onERC1155Received',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'onERC721Received',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'proxiableUUID',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'removeGuardian',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'removeOwner',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'supportsInterface',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'tokensReceived',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'updateEntryPoint',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'onERC1155BatchReceived', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'onERC1155Received', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'onERC721Received', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'proxiableUUID', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'removeGuardian', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'removeOwner', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'tokensReceived', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateEntryPoint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'upgradeTo', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'upgradeToAndCall',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateUserOp',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'withdrawDepositTo',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'upgradeToAndCall', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateUserOp', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'withdrawDepositTo', data: BytesLike): Result;
 
   events: {
     'AdminChanged(address,address)': EventFragment;
@@ -428,20 +290,14 @@ export interface AdminChangedEventObject {
   previousAdmin: string;
   newAdmin: string;
 }
-export type AdminChangedEvent = TypedEvent<
-  [string, string],
-  AdminChangedEventObject
->;
+export type AdminChangedEvent = TypedEvent<[string, string], AdminChangedEventObject>;
 
 export type AdminChangedEventFilter = TypedEventFilter<AdminChangedEvent>;
 
 export interface BeaconUpgradedEventObject {
   beacon: string;
 }
-export type BeaconUpgradedEvent = TypedEvent<
-  [string],
-  BeaconUpgradedEventObject
->;
+export type BeaconUpgradedEvent = TypedEvent<[string], BeaconUpgradedEventObject>;
 
 export type BeaconUpgradedEventFilter = TypedEventFilter<BeaconUpgradedEvent>;
 
@@ -449,13 +305,9 @@ export interface EntryPointChangedEventObject {
   oldEntryPoint: string;
   newEntryPoint: string;
 }
-export type EntryPointChangedEvent = TypedEvent<
-  [string, string],
-  EntryPointChangedEventObject
->;
+export type EntryPointChangedEvent = TypedEvent<[string, string], EntryPointChangedEventObject>;
 
-export type EntryPointChangedEventFilter =
-  TypedEventFilter<EntryPointChangedEvent>;
+export type EntryPointChangedEventFilter = TypedEventFilter<EntryPointChangedEvent>;
 
 export interface LyfeblocNetworkWalletInitializedEventObject {
   entryPoint: string;
@@ -466,8 +318,7 @@ export type LyfeblocNetworkWalletInitializedEvent = TypedEvent<
   LyfeblocNetworkWalletInitializedEventObject
 >;
 
-export type LyfeblocNetworkWalletInitializedEventFilter =
-  TypedEventFilter<LyfeblocNetworkWalletInitializedEvent>;
+export type LyfeblocNetworkWalletInitializedEventFilter = TypedEventFilter<LyfeblocNetworkWalletInitializedEvent>;
 
 export interface LyfeblocNetworkWalletReceivedEventObject {
   from: string;
@@ -478,8 +329,7 @@ export type LyfeblocNetworkWalletReceivedEvent = TypedEvent<
   LyfeblocNetworkWalletReceivedEventObject
 >;
 
-export type LyfeblocNetworkWalletReceivedEventFilter =
-  TypedEventFilter<LyfeblocNetworkWalletReceivedEvent>;
+export type LyfeblocNetworkWalletReceivedEventFilter = TypedEventFilter<LyfeblocNetworkWalletReceivedEvent>;
 
 export interface GuardianAddedEventObject {
   newGuardian: string;
@@ -491,10 +341,7 @@ export type GuardianAddedEventFilter = TypedEventFilter<GuardianAddedEvent>;
 export interface GuardianRemovedEventObject {
   removedGuardian: string;
 }
-export type GuardianRemovedEvent = TypedEvent<
-  [string],
-  GuardianRemovedEventObject
->;
+export type GuardianRemovedEvent = TypedEvent<[string], GuardianRemovedEventObject>;
 
 export type GuardianRemovedEventFilter = TypedEventFilter<GuardianRemovedEvent>;
 
@@ -524,15 +371,11 @@ export interface PublicKeyChangedEventObject {
   newPublicKey: [BigNumber, BigNumber, BigNumber, BigNumber];
 }
 export type PublicKeyChangedEvent = TypedEvent<
-  [
-    [BigNumber, BigNumber, BigNumber, BigNumber],
-    [BigNumber, BigNumber, BigNumber, BigNumber]
-  ],
+  [[BigNumber, BigNumber, BigNumber, BigNumber], [BigNumber, BigNumber, BigNumber, BigNumber]],
   PublicKeyChangedEventObject
 >;
 
-export type PublicKeyChangedEventFilter =
-  TypedEventFilter<PublicKeyChangedEvent>;
+export type PublicKeyChangedEventFilter = TypedEventFilter<PublicKeyChangedEvent>;
 
 export interface UpgradedEventObject {
   implementation: string;
@@ -551,16 +394,12 @@ export interface BrokenBLSAccount extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -568,18 +407,16 @@ export interface BrokenBLSAccount extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
     addGuardian(
       _newGuardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     addOwner(
       _newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     aggregator(overrides?: CallOverrides): Promise<[string]>;
@@ -590,25 +427,23 @@ export interface BrokenBLSAccount extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    getBlsPublicKey(
-      overrides?: CallOverrides
-    ): Promise<[[BigNumber, BigNumber, BigNumber, BigNumber]]>;
+    getBlsPublicKey(overrides?: CallOverrides): Promise<[[BigNumber, BigNumber, BigNumber, BigNumber]]>;
 
     getDeposit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     'initialize(address,address)'(
       anEntryPoint: PromiseOrValue<string>,
       anOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     'initialize(address,uint256[4])'(
@@ -617,26 +452,20 @@ export interface BrokenBLSAccount extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    isGuardian(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isGuardian(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[boolean]>;
 
-    isOwner(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isOwner(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[boolean]>;
 
     isValidSig(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     isValidSigImpl(
@@ -644,14 +473,14 @@ export interface BrokenBLSAccount extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     nonce(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -662,7 +491,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>[],
       arg3: PromiseOrValue<BigNumberish>[],
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     onERC1155Received(
@@ -671,7 +500,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     onERC721Received(
@@ -679,25 +508,22 @@ export interface BrokenBLSAccount extends BaseContract {
       arg1: PromiseOrValue<string>,
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<[string]>;
 
     removeGuardian(
       _guardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     removeOwner(
       _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    supportsInterface(interfaceId: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[boolean]>;
 
     tokensReceived(
       arg0: PromiseOrValue<string>,
@@ -706,51 +532,49 @@ export interface BrokenBLSAccount extends BaseContract {
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
       arg5: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[void]>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     upgradeToAndCall(
       newImplementation: PromiseOrValue<string>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     withdrawDepositTo(
       withdrawAddress: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
-  addDeposit(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
   addGuardian(
     _newGuardian: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   addOwner(
     _newOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   aggregator(overrides?: CallOverrides): Promise<string>;
@@ -761,25 +585,23 @@ export interface BrokenBLSAccount extends BaseContract {
     dest: PromiseOrValue<string>,
     value: PromiseOrValue<BigNumberish>,
     func: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   executeBatch(
     dest: PromiseOrValue<string>[],
     func: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  getBlsPublicKey(
-    overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
+  getBlsPublicKey(overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
   getDeposit(overrides?: CallOverrides): Promise<BigNumber>;
 
   'initialize(address,address)'(
     anEntryPoint: PromiseOrValue<string>,
     anOwner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   'initialize(address,uint256[4])'(
@@ -788,26 +610,20 @@ export interface BrokenBLSAccount extends BaseContract {
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
       PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BigNumberish>
+      PromiseOrValue<BigNumberish>,
     ],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  isGuardian(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isGuardian(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
-  isOwner(
-    _address: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isOwner(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
   isValidSig(
     _signer: PromiseOrValue<string>,
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   isValidSigImpl(
@@ -815,14 +631,14 @@ export interface BrokenBLSAccount extends BaseContract {
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
     allowSideEffects: PromiseOrValue<boolean>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   isValidSigWithSideEffects(
     _signer: PromiseOrValue<string>,
     _hash: PromiseOrValue<BytesLike>,
     _signature: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   nonce(overrides?: CallOverrides): Promise<BigNumber>;
@@ -833,7 +649,7 @@ export interface BrokenBLSAccount extends BaseContract {
     arg2: PromiseOrValue<BigNumberish>[],
     arg3: PromiseOrValue<BigNumberish>[],
     arg4: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   onERC1155Received(
@@ -842,7 +658,7 @@ export interface BrokenBLSAccount extends BaseContract {
     arg2: PromiseOrValue<BigNumberish>,
     arg3: PromiseOrValue<BigNumberish>,
     arg4: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   onERC721Received(
@@ -850,25 +666,22 @@ export interface BrokenBLSAccount extends BaseContract {
     arg1: PromiseOrValue<string>,
     arg2: PromiseOrValue<BigNumberish>,
     arg3: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
   removeGuardian(
     _guardian: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   removeOwner(
     _owner: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(
-    interfaceId: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  supportsInterface(interfaceId: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<boolean>;
 
   tokensReceived(
     arg0: PromiseOrValue<string>,
@@ -877,50 +690,44 @@ export interface BrokenBLSAccount extends BaseContract {
     arg3: PromiseOrValue<BigNumberish>,
     arg4: PromiseOrValue<BytesLike>,
     arg5: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<void>;
 
   updateEntryPoint(
     _newEntryPoint: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   upgradeTo(
     newImplementation: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   upgradeToAndCall(
     newImplementation: PromiseOrValue<string>,
     data: PromiseOrValue<BytesLike>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   validateUserOp(
     userOp: UserOperationStruct,
     userOpHash: PromiseOrValue<BytesLike>,
     missingAccountFunds: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   withdrawDepositTo(
     withdrawAddress: PromiseOrValue<string>,
     amount: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     addDeposit(overrides?: CallOverrides): Promise<void>;
 
-    addGuardian(
-      _newGuardian: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    addGuardian(_newGuardian: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
-    addOwner(
-      _newOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    addOwner(_newOwner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     aggregator(overrides?: CallOverrides): Promise<string>;
 
@@ -930,25 +737,23 @@ export interface BrokenBLSAccount extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    getBlsPublicKey(
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
+    getBlsPublicKey(overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]>;
 
     getDeposit(overrides?: CallOverrides): Promise<BigNumber>;
 
     'initialize(address,address)'(
       anEntryPoint: PromiseOrValue<string>,
       anOwner: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     'initialize(address,uint256[4])'(
@@ -957,26 +762,20 @@ export interface BrokenBLSAccount extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    isGuardian(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isGuardian(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
-    isOwner(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isOwner(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
     isValidSig(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     isValidSigImpl(
@@ -984,14 +783,14 @@ export interface BrokenBLSAccount extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1002,7 +801,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>[],
       arg3: PromiseOrValue<BigNumberish>[],
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     onERC1155Received(
@@ -1011,7 +810,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     onERC721Received(
@@ -1019,25 +818,16 @@ export interface BrokenBLSAccount extends BaseContract {
       arg1: PromiseOrValue<string>,
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<string>;
 
-    removeGuardian(
-      _guardian: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    removeGuardian(_guardian: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
-    removeOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    removeOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
-    supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    supportsInterface(interfaceId: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<boolean>;
 
     tokensReceived(
       arg0: PromiseOrValue<string>,
@@ -1046,89 +836,65 @@ export interface BrokenBLSAccount extends BaseContract {
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
       arg5: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateEntryPoint(
-      _newEntryPoint: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateEntryPoint(_newEntryPoint: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
-    upgradeTo(
-      newImplementation: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    upgradeTo(newImplementation: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
 
     upgradeToAndCall(
       newImplementation: PromiseOrValue<string>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     withdrawDepositTo(
       withdrawAddress: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
   filters: {
-    'AdminChanged(address,address)'(
-      previousAdmin?: null,
-      newAdmin?: null
-    ): AdminChangedEventFilter;
-    AdminChanged(
-      previousAdmin?: null,
-      newAdmin?: null
-    ): AdminChangedEventFilter;
+    'AdminChanged(address,address)'(previousAdmin?: null, newAdmin?: null): AdminChangedEventFilter;
+    AdminChanged(previousAdmin?: null, newAdmin?: null): AdminChangedEventFilter;
 
-    'BeaconUpgraded(address)'(
-      beacon?: PromiseOrValue<string> | null
-    ): BeaconUpgradedEventFilter;
-    BeaconUpgraded(
-      beacon?: PromiseOrValue<string> | null
-    ): BeaconUpgradedEventFilter;
+    'BeaconUpgraded(address)'(beacon?: PromiseOrValue<string> | null): BeaconUpgradedEventFilter;
+    BeaconUpgraded(beacon?: PromiseOrValue<string> | null): BeaconUpgradedEventFilter;
 
-    'EntryPointChanged(address,address)'(
-      oldEntryPoint?: null,
-      newEntryPoint?: null
-    ): EntryPointChangedEventFilter;
-    EntryPointChanged(
-      oldEntryPoint?: null,
-      newEntryPoint?: null
-    ): EntryPointChangedEventFilter;
+    'EntryPointChanged(address,address)'(oldEntryPoint?: null, newEntryPoint?: null): EntryPointChangedEventFilter;
+    EntryPointChanged(oldEntryPoint?: null, newEntryPoint?: null): EntryPointChangedEventFilter;
 
     'LyfeblocNetworkWalletInitialized(address,address)'(
       entryPoint?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null
+      owner?: PromiseOrValue<string> | null,
     ): LyfeblocNetworkWalletInitializedEventFilter;
     LyfeblocNetworkWalletInitialized(
       entryPoint?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null
+      owner?: PromiseOrValue<string> | null,
     ): LyfeblocNetworkWalletInitializedEventFilter;
 
     'LyfeblocNetworkWalletReceived(address,uint256)'(
       from?: PromiseOrValue<string> | null,
-      amount?: PromiseOrValue<BigNumberish> | null
+      amount?: PromiseOrValue<BigNumberish> | null,
     ): LyfeblocNetworkWalletReceivedEventFilter;
     LyfeblocNetworkWalletReceived(
       from?: PromiseOrValue<string> | null,
-      amount?: PromiseOrValue<BigNumberish> | null
+      amount?: PromiseOrValue<BigNumberish> | null,
     ): LyfeblocNetworkWalletReceivedEventFilter;
 
     'GuardianAdded(address)'(newGuardian?: null): GuardianAddedEventFilter;
     GuardianAdded(newGuardian?: null): GuardianAddedEventFilter;
 
-    'GuardianRemoved(address)'(
-      removedGuardian?: null
-    ): GuardianRemovedEventFilter;
+    'GuardianRemoved(address)'(removedGuardian?: null): GuardianRemovedEventFilter;
     GuardianRemoved(removedGuardian?: null): GuardianRemovedEventFilter;
 
     'Initialized(uint8)'(version?: null): InitializedEventFilter;
@@ -1140,36 +906,24 @@ export interface BrokenBLSAccount extends BaseContract {
     'OwnerRemoved(address)'(removedOwner?: null): OwnerRemovedEventFilter;
     OwnerRemoved(removedOwner?: null): OwnerRemovedEventFilter;
 
-    'PublicKeyChanged(uint256[4],uint256[4])'(
-      oldPublicKey?: null,
-      newPublicKey?: null
-    ): PublicKeyChangedEventFilter;
-    PublicKeyChanged(
-      oldPublicKey?: null,
-      newPublicKey?: null
-    ): PublicKeyChangedEventFilter;
+    'PublicKeyChanged(uint256[4],uint256[4])'(oldPublicKey?: null, newPublicKey?: null): PublicKeyChangedEventFilter;
+    PublicKeyChanged(oldPublicKey?: null, newPublicKey?: null): PublicKeyChangedEventFilter;
 
-    'Upgraded(address)'(
-      implementation?: PromiseOrValue<string> | null
-    ): UpgradedEventFilter;
-    Upgraded(
-      implementation?: PromiseOrValue<string> | null
-    ): UpgradedEventFilter;
+    'Upgraded(address)'(implementation?: PromiseOrValue<string> | null): UpgradedEventFilter;
+    Upgraded(implementation?: PromiseOrValue<string> | null): UpgradedEventFilter;
   };
 
   estimateGas: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>;
 
     addGuardian(
       _newGuardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     addOwner(
       _newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     aggregator(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1180,13 +934,13 @@ export interface BrokenBLSAccount extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     getBlsPublicKey(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1196,7 +950,7 @@ export interface BrokenBLSAccount extends BaseContract {
     'initialize(address,address)'(
       anEntryPoint: PromiseOrValue<string>,
       anOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     'initialize(address,uint256[4])'(
@@ -1205,26 +959,20 @@ export interface BrokenBLSAccount extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    isGuardian(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isGuardian(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
-    isOwner(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isOwner(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     isValidSig(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     isValidSigImpl(
@@ -1232,14 +980,14 @@ export interface BrokenBLSAccount extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1250,7 +998,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>[],
       arg3: PromiseOrValue<BigNumberish>[],
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     onERC1155Received(
@@ -1259,7 +1007,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     onERC721Received(
@@ -1267,25 +1015,22 @@ export interface BrokenBLSAccount extends BaseContract {
       arg1: PromiseOrValue<string>,
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<BigNumber>;
 
     removeGuardian(
       _guardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     removeOwner(
       _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    supportsInterface(interfaceId: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<BigNumber>;
 
     tokensReceived(
       arg0: PromiseOrValue<string>,
@@ -1294,52 +1039,50 @@ export interface BrokenBLSAccount extends BaseContract {
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
       arg5: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     upgradeToAndCall(
       newImplementation: PromiseOrValue<string>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     withdrawDepositTo(
       withdrawAddress: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>;
 
     addGuardian(
       _newGuardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     addOwner(
       _newOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     aggregator(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1350,13 +1093,13 @@ export interface BrokenBLSAccount extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     getBlsPublicKey(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1366,7 +1109,7 @@ export interface BrokenBLSAccount extends BaseContract {
     'initialize(address,address)'(
       anEntryPoint: PromiseOrValue<string>,
       anOwner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     'initialize(address,uint256[4])'(
@@ -1375,26 +1118,20 @@ export interface BrokenBLSAccount extends BaseContract {
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
         PromiseOrValue<BigNumberish>,
-        PromiseOrValue<BigNumberish>
+        PromiseOrValue<BigNumberish>,
       ],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    isGuardian(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isGuardian(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isOwner(
-      _address: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isOwner(_address: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isValidSig(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     isValidSigImpl(
@@ -1402,14 +1139,14 @@ export interface BrokenBLSAccount extends BaseContract {
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
       allowSideEffects: PromiseOrValue<boolean>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     isValidSigWithSideEffects(
       _signer: PromiseOrValue<string>,
       _hash: PromiseOrValue<BytesLike>,
       _signature: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     nonce(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1420,7 +1157,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>[],
       arg3: PromiseOrValue<BigNumberish>[],
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     onERC1155Received(
@@ -1429,7 +1166,7 @@ export interface BrokenBLSAccount extends BaseContract {
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     onERC721Received(
@@ -1437,25 +1174,22 @@ export interface BrokenBLSAccount extends BaseContract {
       arg1: PromiseOrValue<string>,
       arg2: PromiseOrValue<BigNumberish>,
       arg3: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     removeGuardian(
       _guardian: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     removeOwner(
       _owner: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(
-      interfaceId: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    supportsInterface(interfaceId: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     tokensReceived(
       arg0: PromiseOrValue<string>,
@@ -1464,36 +1198,36 @@ export interface BrokenBLSAccount extends BaseContract {
       arg3: PromiseOrValue<BigNumberish>,
       arg4: PromiseOrValue<BytesLike>,
       arg5: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     upgradeTo(
       newImplementation: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     upgradeToAndCall(
       newImplementation: PromiseOrValue<string>,
       data: PromiseOrValue<BytesLike>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     validateUserOp(
       userOp: UserOperationStruct,
       userOpHash: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     withdrawDepositTo(
       withdrawAddress: PromiseOrValue<string>,
       amount: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

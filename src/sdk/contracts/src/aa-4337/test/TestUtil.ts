@@ -13,13 +13,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -46,7 +40,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -68,10 +62,7 @@ export interface TestUtilInterface extends utils.Interface {
 
   getFunction(nameOrSignatureOrTopic: 'packUserOp'): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'packUserOp',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'packUserOp', values: [UserOperationStruct]): string;
 
   decodeFunctionResult(functionFragment: 'packUserOp', data: BytesLike): Result;
 
@@ -88,16 +79,12 @@ export interface TestUtil extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -105,37 +92,22 @@ export interface TestUtil extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    packUserOp(
-      op: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    packUserOp(op: UserOperationStruct, overrides?: CallOverrides): Promise<[string]>;
   };
 
-  packUserOp(
-    op: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  packUserOp(op: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    packUserOp(
-      op: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    packUserOp(op: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
-    packUserOp(
-      op: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    packUserOp(op: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    packUserOp(
-      op: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    packUserOp(op: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

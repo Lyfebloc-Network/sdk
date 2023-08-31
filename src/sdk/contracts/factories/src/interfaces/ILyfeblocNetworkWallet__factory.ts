@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from 'ethers';
+import type { Provider } from '@ethersproject/providers';
 import type {
   ILyfeblocNetworkWallet,
   ILyfeblocNetworkWalletInterface,
-} from "../../../src/interfaces/ILyfeblocNetworkWallet";
+} from '../../../src/interfaces/ILyfeblocNetworkWallet';
 
 const _abi = [
   {
@@ -15,218 +15,218 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "oldEntryPoint",
-        type: "address",
+        internalType: 'address',
+        name: 'oldEntryPoint',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "newEntryPoint",
-        type: "address",
+        internalType: 'address',
+        name: 'newEntryPoint',
+        type: 'address',
       },
     ],
-    name: "EntryPointChanged",
-    type: "event",
+    name: 'EntryPointChanged',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "contract IEntryPoint",
-        name: "entryPoint",
-        type: "address",
+        internalType: 'contract IEntryPoint',
+        name: 'entryPoint',
+        type: 'address',
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address",
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
       },
     ],
-    name: "LyfeblocNetworkWalletInitialized",
-    type: "event",
+    name: 'LyfeblocNetworkWalletInitialized',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address",
+        internalType: 'address',
+        name: 'from',
+        type: 'address',
       },
       {
         indexed: true,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "LyfeblocNetworkWalletReceived",
-    type: "event",
+    name: 'LyfeblocNetworkWalletReceived',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "newOwner",
-        type: "address",
+        internalType: 'address',
+        name: 'newOwner',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "blockFrom",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockFrom',
+        type: 'uint256',
       },
     ],
-    name: "OwnerAdded",
-    type: "event",
+    name: 'OwnerAdded',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "removedOwner",
-        type: "address",
+        internalType: 'address',
+        name: 'removedOwner',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "blockFrom",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockFrom',
+        type: 'uint256',
       },
     ],
-    name: "OwnerRemoved",
-    type: "event",
+    name: 'OwnerRemoved',
+    type: 'event',
   },
   {
     inputs: [],
-    name: "addDeposit",
+    name: 'addDeposit',
     outputs: [],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "entryPoint",
+    name: 'entryPoint',
     outputs: [
       {
-        internalType: "contract IEntryPoint",
-        name: "",
-        type: "address",
+        internalType: 'contract IEntryPoint',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "dest",
-        type: "address",
+        internalType: 'address',
+        name: 'dest',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'value',
+        type: 'uint256',
       },
       {
-        internalType: "bytes",
-        name: "func",
-        type: "bytes",
+        internalType: 'bytes',
+        name: 'func',
+        type: 'bytes',
       },
     ],
-    name: "execute",
+    name: 'execute',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address[]",
-        name: "dest",
-        type: "address[]",
+        internalType: 'address[]',
+        name: 'dest',
+        type: 'address[]',
       },
       {
-        internalType: "bytes[]",
-        name: "func",
-        type: "bytes[]",
+        internalType: 'bytes[]',
+        name: 'func',
+        type: 'bytes[]',
       },
     ],
-    name: "executeBatch",
+    name: 'executeBatch',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getDeposit",
+    name: 'getDeposit',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_owner",
-        type: "address",
+        internalType: 'address',
+        name: '_owner',
+        type: 'address',
       },
     ],
-    name: "isOwner",
+    name: 'isOwner',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "nonce",
+    name: 'nonce',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_newEntryPoint",
-        type: "address",
+        internalType: 'address',
+        name: '_newEntryPoint',
+        type: 'address',
       },
     ],
-    name: "updateEntryPoint",
+    name: 'updateEntryPoint',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
-    stateMutability: "payable",
-    type: "receive",
+    stateMutability: 'payable',
+    type: 'receive',
   },
 ] as const;
 
@@ -235,10 +235,7 @@ export class ILyfeblocNetworkWallet__factory {
   static createInterface(): ILyfeblocNetworkWalletInterface {
     return new utils.Interface(_abi) as ILyfeblocNetworkWalletInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ILyfeblocNetworkWallet {
+  static connect(address: string, signerOrProvider: Signer | Provider): ILyfeblocNetworkWallet {
     return new Contract(address, _abi, signerOrProvider) as ILyfeblocNetworkWallet;
   }
 }

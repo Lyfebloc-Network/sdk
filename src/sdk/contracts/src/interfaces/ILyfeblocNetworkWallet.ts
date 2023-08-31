@@ -14,19 +14,9 @@ import type {
   Signer,
   utils,
 } from 'ethers';
-import type {
-  FunctionFragment,
-  Result,
-  EventFragment,
-} from '@ethersproject/abi';
+import type { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../common';
 
 export interface ILyfeblocNetworkWalletInterface extends utils.Interface {
   functions: {
@@ -49,57 +39,32 @@ export interface ILyfeblocNetworkWalletInterface extends utils.Interface {
       | 'getDeposit'
       | 'isOwner'
       | 'nonce'
-      | 'updateEntryPoint'
+      | 'updateEntryPoint',
   ): FunctionFragment;
 
-  encodeFunctionData(
-    functionFragment: 'addDeposit',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'entryPoint',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'addDeposit', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'entryPoint', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'execute',
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<BigNumberish>,
-      PromiseOrValue<BytesLike>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>],
   ): string;
   encodeFunctionData(
     functionFragment: 'executeBatch',
-    values: [PromiseOrValue<string>[], PromiseOrValue<BytesLike>[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BytesLike>[]],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'getDeposit',
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'isOwner',
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'getDeposit', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isOwner', values: [PromiseOrValue<string>]): string;
   encodeFunctionData(functionFragment: 'nonce', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'updateEntryPoint',
-    values: [PromiseOrValue<string>]
-  ): string;
+  encodeFunctionData(functionFragment: 'updateEntryPoint', values: [PromiseOrValue<string>]): string;
 
   decodeFunctionResult(functionFragment: 'addDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'entryPoint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'execute', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'executeBatch',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'executeBatch', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isOwner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'nonce', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'updateEntryPoint',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'updateEntryPoint', data: BytesLike): Result;
 
   events: {
     'EntryPointChanged(address,address)': EventFragment;
@@ -120,13 +85,9 @@ export interface EntryPointChangedEventObject {
   oldEntryPoint: string;
   newEntryPoint: string;
 }
-export type EntryPointChangedEvent = TypedEvent<
-  [string, string],
-  EntryPointChangedEventObject
->;
+export type EntryPointChangedEvent = TypedEvent<[string, string], EntryPointChangedEventObject>;
 
-export type EntryPointChangedEventFilter =
-  TypedEventFilter<EntryPointChangedEvent>;
+export type EntryPointChangedEventFilter = TypedEventFilter<EntryPointChangedEvent>;
 
 export interface LyfeblocNetworkWalletInitializedEventObject {
   entryPoint: string;
@@ -137,8 +98,7 @@ export type LyfeblocNetworkWalletInitializedEvent = TypedEvent<
   LyfeblocNetworkWalletInitializedEventObject
 >;
 
-export type LyfeblocNetworkWalletInitializedEventFilter =
-  TypedEventFilter<LyfeblocNetworkWalletInitializedEvent>;
+export type LyfeblocNetworkWalletInitializedEventFilter = TypedEventFilter<LyfeblocNetworkWalletInitializedEvent>;
 
 export interface LyfeblocNetworkWalletReceivedEventObject {
   from: string;
@@ -149,17 +109,13 @@ export type LyfeblocNetworkWalletReceivedEvent = TypedEvent<
   LyfeblocNetworkWalletReceivedEventObject
 >;
 
-export type LyfeblocNetworkWalletReceivedEventFilter =
-  TypedEventFilter<LyfeblocNetworkWalletReceivedEvent>;
+export type LyfeblocNetworkWalletReceivedEventFilter = TypedEventFilter<LyfeblocNetworkWalletReceivedEvent>;
 
 export interface OwnerAddedEventObject {
   newOwner: string;
   blockFrom: BigNumber;
 }
-export type OwnerAddedEvent = TypedEvent<
-  [string, BigNumber],
-  OwnerAddedEventObject
->;
+export type OwnerAddedEvent = TypedEvent<[string, BigNumber], OwnerAddedEventObject>;
 
 export type OwnerAddedEventFilter = TypedEventFilter<OwnerAddedEvent>;
 
@@ -167,10 +123,7 @@ export interface OwnerRemovedEventObject {
   removedOwner: string;
   blockFrom: BigNumber;
 }
-export type OwnerRemovedEvent = TypedEvent<
-  [string, BigNumber],
-  OwnerRemovedEventObject
->;
+export type OwnerRemovedEvent = TypedEvent<[string, BigNumber], OwnerRemovedEventObject>;
 
 export type OwnerRemovedEventFilter = TypedEventFilter<OwnerRemovedEvent>;
 
@@ -184,16 +137,12 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -201,9 +150,7 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<ContractTransaction>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
     entryPoint(overrides?: CallOverrides): Promise<[string]>;
 
@@ -211,33 +158,28 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     getDeposit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    isOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[boolean]>;
+    isOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[boolean]>;
 
     nonce(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
-  addDeposit(
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-  ): Promise<ContractTransaction>;
+  addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<ContractTransaction>;
 
   entryPoint(overrides?: CallOverrides): Promise<string>;
 
@@ -245,27 +187,24 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
     dest: PromiseOrValue<string>,
     value: PromiseOrValue<BigNumberish>,
     func: PromiseOrValue<BytesLike>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   executeBatch(
     dest: PromiseOrValue<string>[],
     func: PromiseOrValue<BytesLike>[],
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   getDeposit(overrides?: CallOverrides): Promise<BigNumber>;
 
-  isOwner(
-    _owner: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<boolean>;
+  isOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
   nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
   updateEntryPoint(
     _newEntryPoint: PromiseOrValue<string>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -277,78 +216,55 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     getDeposit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    isOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    isOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<boolean>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
-    updateEntryPoint(
-      _newEntryPoint: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateEntryPoint(_newEntryPoint: PromiseOrValue<string>, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    'EntryPointChanged(address,address)'(
-      oldEntryPoint?: null,
-      newEntryPoint?: null
-    ): EntryPointChangedEventFilter;
-    EntryPointChanged(
-      oldEntryPoint?: null,
-      newEntryPoint?: null
-    ): EntryPointChangedEventFilter;
+    'EntryPointChanged(address,address)'(oldEntryPoint?: null, newEntryPoint?: null): EntryPointChangedEventFilter;
+    EntryPointChanged(oldEntryPoint?: null, newEntryPoint?: null): EntryPointChangedEventFilter;
 
     'LyfeblocNetworkWalletInitialized(address,address)'(
       entryPoint?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null
+      owner?: PromiseOrValue<string> | null,
     ): LyfeblocNetworkWalletInitializedEventFilter;
     LyfeblocNetworkWalletInitialized(
       entryPoint?: PromiseOrValue<string> | null,
-      owner?: PromiseOrValue<string> | null
+      owner?: PromiseOrValue<string> | null,
     ): LyfeblocNetworkWalletInitializedEventFilter;
 
     'LyfeblocNetworkWalletReceived(address,uint256)'(
       from?: PromiseOrValue<string> | null,
-      amount?: PromiseOrValue<BigNumberish> | null
+      amount?: PromiseOrValue<BigNumberish> | null,
     ): LyfeblocNetworkWalletReceivedEventFilter;
     LyfeblocNetworkWalletReceived(
       from?: PromiseOrValue<string> | null,
-      amount?: PromiseOrValue<BigNumberish> | null
+      amount?: PromiseOrValue<BigNumberish> | null,
     ): LyfeblocNetworkWalletReceivedEventFilter;
 
-    'OwnerAdded(address,uint256)'(
-      newOwner?: null,
-      blockFrom?: null
-    ): OwnerAddedEventFilter;
+    'OwnerAdded(address,uint256)'(newOwner?: null, blockFrom?: null): OwnerAddedEventFilter;
     OwnerAdded(newOwner?: null, blockFrom?: null): OwnerAddedEventFilter;
 
-    'OwnerRemoved(address,uint256)'(
-      removedOwner?: null,
-      blockFrom?: null
-    ): OwnerRemovedEventFilter;
-    OwnerRemoved(
-      removedOwner?: null,
-      blockFrom?: null
-    ): OwnerRemovedEventFilter;
+    'OwnerRemoved(address,uint256)'(removedOwner?: null, blockFrom?: null): OwnerRemovedEventFilter;
+    OwnerRemoved(removedOwner?: null, blockFrom?: null): OwnerRemovedEventFilter;
   };
 
   estimateGas: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<BigNumber>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<BigNumber>;
 
     entryPoint(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -356,34 +272,29 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
     getDeposit(overrides?: CallOverrides): Promise<BigNumber>;
 
-    isOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     nonce(overrides?: CallOverrides): Promise<BigNumber>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    addDeposit(
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
-    ): Promise<PopulatedTransaction>;
+    addDeposit(overrides?: PayableOverrides & { from?: PromiseOrValue<string> }): Promise<PopulatedTransaction>;
 
     entryPoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -391,27 +302,24 @@ export interface ILyfeblocNetworkWallet extends BaseContract {
       dest: PromiseOrValue<string>,
       value: PromiseOrValue<BigNumberish>,
       func: PromiseOrValue<BytesLike>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     executeBatch(
       dest: PromiseOrValue<string>[],
       func: PromiseOrValue<BytesLike>[],
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
     getDeposit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isOwner(
-      _owner: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isOwner(_owner: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     nonce(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateEntryPoint(
       _newEntryPoint: PromiseOrValue<string>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

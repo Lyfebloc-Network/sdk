@@ -35,7 +35,7 @@ export enum ExchangeProviders {
 export enum CrossChainServiceProvider {
   SocketV2 = 'SocketV2',
   LiFi = 'LiFi',
-  Lyfebloc Network = 'Connext',
+  LyfeblocNetwork = 'Connext',
 }
 
 export enum LiFiBridge {

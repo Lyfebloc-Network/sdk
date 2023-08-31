@@ -10,5 +10,4 @@ export class State {
   account: Account;
 
   network: Network;
-
 }

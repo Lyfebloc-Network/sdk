@@ -18,9 +18,7 @@ export async function getGasFee(provider: ethers.providers.JsonRpcProvider): Pro
 
     return { maxFeePerGas, maxPriorityFeePerGas };
   } catch (err) {
-    console.warn(
-      "getGas: eth_maxPriorityFeePerGas failed, falling back to legacy gas price."
-    );
+    console.warn('getGas: eth_maxPriorityFeePerGas failed, falling back to legacy gas price.');
     const gas = await provider.getGasPrice();
     return { maxFeePerGas: gas, maxPriorityFeePerGas: gas };
   }

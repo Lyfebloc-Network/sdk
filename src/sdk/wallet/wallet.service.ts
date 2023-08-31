@@ -13,7 +13,12 @@ export class WalletService extends Service {
 
   provider: WalletProvider;
 
-  constructor(private providerLike: WalletProviderLike, private options: WalletOptions, public rpcUrl: string, public chain: number) {
+  constructor(
+    private providerLike: WalletProviderLike,
+    private options: WalletOptions,
+    public rpcUrl: string,
+    public chain: number,
+  ) {
     super();
     this.rpcBundlerUrl = rpcUrl;
     this.chainId = chain;
@@ -37,8 +42,8 @@ export class WalletService extends Service {
   }
 
   getWalletProvider(): providers.JsonRpcProvider {
-    if (this.rpcUrl) return new ethers.providers.JsonRpcProvider(this.rpcUrl)
-    return new ethers.providers.JsonRpcProvider(this.rpcBundlerUrl)
+    if (this.rpcUrl) return new ethers.providers.JsonRpcProvider(this.rpcUrl);
+    return new ethers.providers.JsonRpcProvider(this.rpcBundlerUrl);
   }
 
   async signMessage(message: BytesLike): Promise<string> {

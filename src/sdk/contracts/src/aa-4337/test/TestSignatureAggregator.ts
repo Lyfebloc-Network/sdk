@@ -15,13 +15,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -48,7 +42,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -72,43 +66,24 @@ export interface TestSignatureAggregatorInterface extends utils.Interface {
   };
 
   getFunction(
-    nameOrSignatureOrTopic:
-      | 'addStake'
-      | 'aggregateSignatures'
-      | 'validateSignatures'
-      | 'validateUserOpSignature'
+    nameOrSignatureOrTopic: 'addStake' | 'aggregateSignatures' | 'validateSignatures' | 'validateUserOpSignature',
   ): FunctionFragment;
 
   encodeFunctionData(
     functionFragment: 'addStake',
-    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'aggregateSignatures',
-    values: [UserOperationStruct[]]
-  ): string;
+  encodeFunctionData(functionFragment: 'aggregateSignatures', values: [UserOperationStruct[]]): string;
   encodeFunctionData(
     functionFragment: 'validateSignatures',
-    values: [UserOperationStruct[], PromiseOrValue<BytesLike>]
+    values: [UserOperationStruct[], PromiseOrValue<BytesLike>],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'validateUserOpSignature',
-    values: [UserOperationStruct]
-  ): string;
+  encodeFunctionData(functionFragment: 'validateUserOpSignature', values: [UserOperationStruct]): string;
 
   decodeFunctionResult(functionFragment: 'addStake', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'aggregateSignatures',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateSignatures',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateUserOpSignature',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'aggregateSignatures', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateSignatures', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateUserOpSignature', data: BytesLike): Result;
 
   events: {};
 }
@@ -123,16 +98,12 @@ export interface TestSignatureAggregator extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -143,70 +114,55 @@ export interface TestSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
 
     aggregateSignatures(
       userOps: UserOperationStruct[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string] & { aggregatedSignature: string }>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[void]>;
 
-    validateUserOpSignature(
-      arg0: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    validateUserOpSignature(arg0: UserOperationStruct, overrides?: CallOverrides): Promise<[string]>;
   };
 
   addStake(
     entryPoint: PromiseOrValue<string>,
     delay: PromiseOrValue<BigNumberish>,
-    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
-  aggregateSignatures(
-    userOps: UserOperationStruct[],
-    overrides?: CallOverrides
-  ): Promise<string>;
+  aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<string>;
 
   validateSignatures(
     userOps: UserOperationStruct[],
     signature: PromiseOrValue<BytesLike>,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<void>;
 
-  validateUserOpSignature(
-    arg0: UserOperationStruct,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  validateUserOpSignature(arg0: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<string>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<string>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    validateUserOpSignature(
-      arg0: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    validateUserOpSignature(arg0: UserOperationStruct, overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -215,47 +171,35 @@ export interface TestSignatureAggregator extends BaseContract {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<BigNumber>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    validateUserOpSignature(
-      arg0: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    validateUserOpSignature(arg0: UserOperationStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     addStake(
       entryPoint: PromiseOrValue<string>,
       delay: PromiseOrValue<BigNumberish>,
-      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
 
-    aggregateSignatures(
-      userOps: UserOperationStruct[],
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    aggregateSignatures(userOps: UserOperationStruct[], overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     validateSignatures(
       userOps: UserOperationStruct[],
       signature: PromiseOrValue<BytesLike>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    validateUserOpSignature(
-      arg0: UserOperationStruct,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    validateUserOpSignature(arg0: UserOperationStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -15,13 +15,7 @@ import type {
 } from 'ethers';
 import type { FunctionFragment, Result } from '@ethersproject/abi';
 import type { Listener, Provider } from '@ethersproject/providers';
-import type {
-  TypedEventFilter,
-  TypedEvent,
-  TypedListener,
-  OnEvent,
-  PromiseOrValue,
-} from '../../../common';
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from '../../../common';
 
 export type UserOperationStruct = {
   sender: PromiseOrValue<string>;
@@ -48,7 +42,7 @@ export type UserOperationStructOutput = [
   BigNumber,
   BigNumber,
   string,
-  string
+  string,
 ] & {
   sender: string;
   nonce: BigNumber;
@@ -71,45 +65,20 @@ export interface TestWarmColdAccountInterface extends utils.Interface {
     'validateUserOp((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes),bytes32,uint256)': FunctionFragment;
   };
 
-  getFunction(
-    nameOrSignatureOrTopic:
-      | 'state'
-      | 'touchPaymaster'
-      | 'touchStorage'
-      | 'validateUserOp'
-  ): FunctionFragment;
+  getFunction(nameOrSignatureOrTopic: 'state' | 'touchPaymaster' | 'touchStorage' | 'validateUserOp'): FunctionFragment;
 
   encodeFunctionData(functionFragment: 'state', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'touchPaymaster',
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
-    functionFragment: 'touchStorage',
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'touchPaymaster', values: [PromiseOrValue<string>]): string;
+  encodeFunctionData(functionFragment: 'touchStorage', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'validateUserOp',
-    values: [
-      UserOperationStruct,
-      PromiseOrValue<BytesLike>,
-      PromiseOrValue<BigNumberish>
-    ]
+    values: [UserOperationStruct, PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>],
   ): string;
 
   decodeFunctionResult(functionFragment: 'state', data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: 'touchPaymaster',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'touchStorage',
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: 'validateUserOp',
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'touchPaymaster', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'touchStorage', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateUserOp', data: BytesLike): Result;
 
   events: {};
 }
@@ -124,16 +93,12 @@ export interface TestWarmColdAccount extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -143,10 +108,7 @@ export interface TestWarmColdAccount extends BaseContract {
   functions: {
     state(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    touchPaymaster(
-      paymaster: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    touchPaymaster(paymaster: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     touchStorage(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -154,16 +116,13 @@ export interface TestWarmColdAccount extends BaseContract {
       userOp: UserOperationStruct,
       arg1: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<ContractTransaction>;
   };
 
   state(overrides?: CallOverrides): Promise<BigNumber>;
 
-  touchPaymaster(
-    paymaster: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  touchPaymaster(paymaster: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
   touchStorage(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -171,16 +130,13 @@ export interface TestWarmColdAccount extends BaseContract {
     userOp: UserOperationStruct,
     arg1: PromiseOrValue<BytesLike>,
     missingAccountFunds: PromiseOrValue<BigNumberish>,
-    overrides?: Overrides & { from?: PromiseOrValue<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     state(overrides?: CallOverrides): Promise<BigNumber>;
 
-    touchPaymaster(
-      paymaster: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    touchPaymaster(paymaster: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     touchStorage(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -188,7 +144,7 @@ export interface TestWarmColdAccount extends BaseContract {
       userOp: UserOperationStruct,
       arg1: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -197,10 +153,7 @@ export interface TestWarmColdAccount extends BaseContract {
   estimateGas: {
     state(overrides?: CallOverrides): Promise<BigNumber>;
 
-    touchPaymaster(
-      paymaster: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    touchPaymaster(paymaster: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
 
     touchStorage(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -208,17 +161,14 @@ export interface TestWarmColdAccount extends BaseContract {
       userOp: UserOperationStruct,
       arg1: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     state(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    touchPaymaster(
-      paymaster: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    touchPaymaster(paymaster: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     touchStorage(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -226,7 +176,7 @@ export interface TestWarmColdAccount extends BaseContract {
       userOp: UserOperationStruct,
       arg1: PromiseOrValue<BytesLike>,
       missingAccountFunds: PromiseOrValue<BigNumberish>,
-      overrides?: Overrides & { from?: PromiseOrValue<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

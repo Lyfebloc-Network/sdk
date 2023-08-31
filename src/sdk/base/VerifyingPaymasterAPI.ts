@@ -58,10 +58,14 @@ export class VerifyingPaymasterAPI extends PaymasterAPI {
         params: [await toJSON(op), this.entryPoint, this.context],
       })
       .then((res) => {
-        return res.data
+        return res.data;
       });
 
-    return {paymasterAndData: paymasterAndData.paymasterAndData, verificationGasLimit: paymasterAndData.verificationGasLimit, preVerificationGas: op.preVerificationGas.toString()};
+    return {
+      paymasterAndData: paymasterAndData.paymasterAndData,
+      verificationGasLimit: paymasterAndData.verificationGasLimit,
+      preVerificationGas: op.preVerificationGas.toString(),
+    };
   }
 }
 

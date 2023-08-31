@@ -8,4 +8,3 @@ export function buildApiUri(options: ApiOptions, protocol: string, path = ''): s
 
   return `${protocol}${useSsl ? 's' : ''}://${host}${port ? `:${port}` : ''}/${path}`;
 }
-

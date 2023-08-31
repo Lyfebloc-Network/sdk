@@ -1,4 +1,4 @@
-import { NetworkConfig } from ".";
+import { NetworkConfig } from '.';
 
 export enum NetworkNames {
   Goerli = 'goerli',
@@ -28,8 +28,10 @@ export enum NetworkNames {
   LineaTestnet = 'lineaTestnet',
 }
 
-export const SupportedNetworks =
-  [1, 5, 10, 31, 56, 97, 100, 122, 123, 137, 420, 2357, 5000, 8453, 10200, 20197, 42161, 43113, 43114, 59140, 59144, 80001, 84531, 421613, 11155111]
+export const SupportedNetworks = [
+  1, 5, 10, 31, 56, 97, 100, 122, 123, 137, 420, 2357, 5000, 8453, 10200, 20197, 42161, 43113, 43114, 59140, 59144,
+  80001, 84531, 421613, 11155111,
+];
 
 export const NETWORK_NAME_TO_CHAIN_ID: {
   [key: string]: number;
@@ -61,10 +63,10 @@ export const NETWORK_NAME_TO_CHAIN_ID: {
   [NetworkNames.LineaTestnet]: 59140,
 };
 
-export const onRamperAllNetworks = ['OPTIMISM', 'POLYGON', 'ARBITRUM', 'FUSE', 'GNOSIS', 'ETHEREUM']
+export const onRamperAllNetworks = ['OPTIMISM', 'POLYGON', 'ARBITRUM', 'FUSE', 'GNOSIS', 'ETHEREUM'];
 
 export const Networks: {
-  [key: string]: NetworkConfig
+  [key: string]: NetworkConfig;
 } = {
   [5]: {
     chainId: 5,
@@ -233,63 +235,63 @@ export const Networks: {
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: 'etherspot.pillarproject.io'
+    graphqlEndpoint: 'etherspot.pillarproject.io',
   },
   [8453]: {
     chainId: 8453,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: ''
+    graphqlEndpoint: '',
   },
   [56]: {
     chainId: 56,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: 'etherspot.pillarproject.io'
+    graphqlEndpoint: 'etherspot.pillarproject.io',
   },
   [97]: {
     chainId: 97,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: ''
+    graphqlEndpoint: '',
   },
   [43113]: {
     chainId: 43113,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: ''
+    graphqlEndpoint: '',
   },
   [59144]: {
     chainId: 59144,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: ''
+    graphqlEndpoint: '',
   },
   [59140]: {
     chainId: 59140,
     bundler: '',
     contracts: {
       entryPoint: '0x5FF137D4b0FDCD49DcA30c7CF57E578a026d2789',
-      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E'
+      walletFactory: '0x7f6d8F107fE8551160BD5351d5F1514A6aD5d40E',
     },
-    graphqlEndpoint: ''
+    graphqlEndpoint: '',
   },
 };
 

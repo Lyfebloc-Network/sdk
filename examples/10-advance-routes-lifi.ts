@@ -5,10 +5,13 @@ dotenv.config();
 
 async function main(): Promise<void> {
   // initializating sdk...
-  const primeSdk = new PrimeSdk({ privateKey: process.env.WALLET_PRIVATE_KEY }, {
-    chainId: Number(process.env.CHAIN_ID),
-    projectKey: '', // project key
-  });
+  const primeSdk = new PrimeSdk(
+    { privateKey: process.env.WALLET_PRIVATE_KEY },
+    {
+      chainId: Number(process.env.CHAIN_ID),
+      projectKey: '', // project key
+    },
+  );
 
   const fromChainId = 56;
   const toChainId = 137;
